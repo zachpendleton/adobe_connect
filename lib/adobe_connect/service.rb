@@ -10,7 +10,7 @@ module AdobeConnect
     end
 
     def log_in
-      response = request('login', login: username, password: password)
+      response = request('login', { login: username, password: password }, false)
       if Nokogiri::XML(response.body).at_xpath('//status').attr('code') == 'ok'
         @session       = response.fetch('set-cookie').match(/(?<=BREEZESESSION=)[^;]+/)[0]
         @authenticated = true
@@ -42,7 +42,12 @@ module AdobeConnect
     private
     attr_reader :password
 
-    def request(action, params)
+    def request(action, params, use_session = true)
+      if use_session
+        log_in unless authenticated?
+        params[:session] = session
+      end
+
       query_string = ParamFormatter.new(params).format
       client.get("/api/xml?action=#{action}#{query_string}")
     end

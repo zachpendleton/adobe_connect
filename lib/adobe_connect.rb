@@ -5,12 +5,11 @@ require 'nokogiri'
 
 require 'adobe_connect/version'
 require 'adobe_connect/config'
+require 'adobe_connect/response'
 require 'adobe_connect/session'
 require 'adobe_connect/service'
 require 'adobe_connect/param_formatter'
 require 'adobe_connect/meeting_folder'
 require 'adobe_connect/user'
 
-module AdobeConnect
-  # Your code goes here...
-end
+module AdobeConnect; end
