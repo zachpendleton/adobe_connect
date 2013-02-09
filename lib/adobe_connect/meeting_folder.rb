@@ -10,8 +10,7 @@ module AdobeConnect
     end
 
     def contents
-      response = service.sco_contents(sco_id: id)
-      Nokogiri::XML(response.body)
+      service.sco_contents(sco_id: id)
     end
 
     def self.find(name, service = AdobeConnect::Service.new)
@@ -19,8 +18,6 @@ module AdobeConnect
         query: name,
         filter_type: 'folder',
         field: 'name')
-
-      response = Nokogiri::XML(response.body)
 
       MeetingFolder.new(response.at_xpath('//sco').attr('sco-id'),
         response.at_xpath('//name').text,

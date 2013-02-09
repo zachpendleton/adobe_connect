@@ -22,12 +22,10 @@ module AdobeConnect
         password: password, type: 'user', has_children: 0,
         email: canvas_user.email)
 
-      body = Nokogiri::XML(response.body)
-
-      if body.at_xpath('//status').attr('code') == 'ok'
+      if response.at_xpath('//status').attr('code') == 'ok'
         true
       else
-        save_errors(body)
+        save_errors(response)
         false
       end
     end
@@ -43,7 +41,7 @@ module AdobeConnect
       user     = AdobeConnect::User.new(canvas_user)
       response = user.service.principal_list(filter_login: user.username)
 
-      if principal = Nokogiri::XML(response.body).at_xpath('//principal')
+      if principal = response.at_xpath('//principal')
         user.instance_variable_set(:@id, principal.attr('principal-id'))
         user
       end

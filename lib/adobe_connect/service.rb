@@ -11,7 +11,7 @@ module AdobeConnect
 
     def log_in
       response = request('login', { login: username, password: password }, false)
-      if Nokogiri::XML(response.body).at_xpath('//status').attr('code') == 'ok'
+      if response.at_xpath('//status').attr('code') == 'ok'
         @session       = response.fetch('set-cookie').match(/(?<=BREEZESESSION=)[^;]+/)[0]
         @authenticated = true
       else
