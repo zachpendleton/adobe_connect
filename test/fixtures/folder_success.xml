@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <sco-search-by-field-info>
+    <sco sco-id="25915" account-id="7" folder-id="11004" type="folder" icon="folder" max-retries="" lang="en" display-seq="0" source-sco-id="" version="0" parent-type="-2" tree-type="6" grand-parent="7">
+      <name>canvas_meetings</name>
+      <url-path>/meeting-path/</url-path>
+      <date-created>2013-01-15T12:21:42.243-07:00</date-created>
+      <date-modified>2013-01-15T12:21:42.243-07:00</date-modified>
+      <recordcreated>2013-01-15T05:21:42.463-07:00</recordcreated>
+      <principal-name>Zach Pendleton</principal-name>
+      <folder-name>User Meetings</folder-name>
+    </sco>
+  </sco-search-by-field-info>
+</results>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <principal has-children="0" type="user" account-id="7" principal-id="26243">
+    <ext-login>testinguser@example.com</ext-login>
+    <name>Testing User</name>
+    <login>testinguser@example.com</login>
+  </principal>
+</results>

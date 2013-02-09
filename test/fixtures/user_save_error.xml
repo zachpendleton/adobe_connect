@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="invalid">
+    <invalid field="login" type="string" subcode="range" min="1" max="60"/>
+    <invalid field="login" type="string" subcode="missing"/>
+    <invalid field="first-name" type="string" subcode="range" min="1" max="254"/>
+  </status>
+</results>
