@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-bundle exec pry -r $DIR/../lib/adobe_connect.rb
+system <<-END
+  pry --require adobe_connect
+END
