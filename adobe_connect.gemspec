@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = AdobeConnect::VERSION
   gem.authors       = ["Zach Pendleton"]
   gem.email         = ["zachpendleton@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{An API wrapper for interacting with Adobe Connect services.}
+  gem.summary       = %q{An API wrapper for Adobe Connect services.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
