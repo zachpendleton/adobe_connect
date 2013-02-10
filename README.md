@@ -7,7 +7,7 @@ This gem provides a wrapper for interacting with the Adobe Connect API that
 
 Add this line to your application's Gemfile:
 
-    gem 'adobe_connect', '0.0.1'
+    gem 'adobe_connect', '0.0.2'
 
 And then run:
 
