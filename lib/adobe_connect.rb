@@ -3,7 +3,6 @@ require 'erb'
 require 'net/https'
 require 'nokogiri'
 
-require 'adobe_connect/version'
 require 'adobe_connect/config'
 require 'adobe_connect/response'
 require 'adobe_connect/session'
