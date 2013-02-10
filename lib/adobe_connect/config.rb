@@ -3,22 +3,29 @@ module AdobeConnect
 
     @settings = Hash.new
 
-    def self.merge(settings)
-      @settings.merge(settings)
-    end
+    class << self
+      def merge(settings)
+        @settings.merge(settings)
+      end
 
-    def self.declare(settings)
-      @settings.merge!(settings)
-    end
+      def declare(&block)
+        instance_eval(&block)
+      end
 
-    def self.[](key)
-      @settings[key]
-    end
+      def [](key)
+        @settings[key]
+      end
 
-    def self.[]=(key, value)
-      @settings[key] = value
-    end
+      def []=(key, value)
+        @settings[key] = value
+      end
 
-    def self.settings; @settings; end
+      def settings; @settings; end
+
+      private
+      [:username, :password, :domain].each do |method|
+        define_method(method) { |value| @settings[method] = value }
+      end
+    end
   end
 end

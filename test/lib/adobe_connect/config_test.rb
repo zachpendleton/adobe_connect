@@ -15,19 +15,22 @@ class ConfigTest < MiniTest::Unit::TestCase
     assert_equal '123', @config[:test]
   end
 
-  def test_declare_stores_new_settings
-    @config.declare(a: 1)
-    assert_equal 1, @config[:a]
+  def test_declare_stores_a_username
+    @config.declare { username 'test@example.com' }
+    assert_equal 'test@example.com', @config[:username]
   end
 
-  def test_declare_overwrites_existing_settings
-    @config[:a] = 1
-    @config.declare(a: 2)
-    assert_equal 2, @config[:a]
+  def test_declare_stores_a_password
+    @config.declare { password 'password' }
+    assert_equal 'password', @config[:password]
+  end
+
+  def test_declare_stores_a_domain
+    @config.declare { domain 'http://example.com' }
+    assert_equal 'http://example.com', @config[:domain]
   end
 
   def test_settings_returns_a_hash
     assert_instance_of Hash, @config.settings
   end
-
 end

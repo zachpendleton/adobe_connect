@@ -2,8 +2,11 @@ require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
 class AdobeConnectUserTest < MiniTest::Unit::TestCase
 
-  AdobeConnect::Config.declare(username: 'test@example.com', password: 'pwd',
-    domain: 'http://example.com')
+  AdobeConnect::Config.declare do
+    username 'test@example.com'
+    password 'pwd'
+    domain   'http://example.com'
+  end
 
   SAVE_SUCCESS = File.read('test/fixtures/user_save_success.xml')
   SAVE_ERROR   = File.read('test/fixtures/user_save_error.xml')
