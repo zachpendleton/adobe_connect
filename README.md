@@ -19,10 +19,17 @@ Or install it yourself as:
 
 ## Get started
 
-The magic happens in AdobeConnect::Service.
+You can get started by running `adobe_connect_console` in your terminal. This
+will open up a new Pry session with all of the Connect classes loaded.
 
     # start by configuring it with a username, password, and domain.
-    connect = AdobeConnect::Service.new('test@example.com', 'password', 'http://connect.example.com')
+    AdobeConnect::Config.declare do
+      username 'test@example.com'
+      password 'password'
+      domain   'http://connect.example.com'
+    end
+
+    connect = AdobeConnect::Service.new
 
     # log in so you have a session
     connect.log_in #=> true
