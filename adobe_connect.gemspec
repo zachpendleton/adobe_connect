@@ -22,6 +22,8 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'pry',           '>= 0.9.11.4'
   gem.add_dependency 'rake',          '~> 10.0.3'
 
-  gem.add_development_dependency 'minitest', '~> 4.6.0'
-  gem.add_development_dependency 'mocha',    '~> 0.13.2'
+  gem.add_development_dependency 'minitest',    '~> 4.6.0'
+  gem.add_development_dependency 'mocha',       '~> 0.13.2'
+  gem.add_development_dependency 'yard',        '~> 0.8.4.1'
+  gem.add_development_dependency 'yard-tomdoc', '~> 0.6.0'
 end
