@@ -4,70 +4,70 @@
   <scos>
     <sco sco-id="26013" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>BIG-001: Course Conference [12]</name>
-      <url-path>/canvas-meeting-12/</url-path>
+      <url-path>/my-meeting-12/</url-path>
       <date-begin>2013-01-18T10:37:21.000-07:00</date-begin>
       <date-created>2013-01-18T10:37:29.133-07:00</date-created>
       <date-modified>2013-01-18T10:46:37.187-07:00</date-modified>
     </sco>
     <sco sco-id="26102" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>BIOL 1550 E01: Course Conference [45]</name>
-      <url-path>/canvas-meeting-45/</url-path>
+      <url-path>/my-meeting-45/</url-path>
       <date-begin>2013-01-25T14:15:19.000-07:00</date-begin>
       <date-created>2013-01-25T14:15:26.890-07:00</date-created>
       <date-modified>2013-01-25T14:28:36.350-07:00</date-modified>
     </sco>
     <sco sco-id="25917" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>Discussion Copy 1: Adobe connect conference [18847]</name>
-      <url-path>/canvas-meeting-18847/</url-path>
+      <url-path>/my-meeting-18847/</url-path>
       <date-begin>2013-01-15T12:22:03.000-07:00</date-begin>
       <date-created>2013-01-15T12:22:06.977-07:00</date-created>
       <date-modified>2013-01-15T12:31:13.053-07:00</date-modified>
     </sco>
     <sco sco-id="26109" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>ENGL 2600 E01: Course Conference [46]</name>
-      <url-path>/canvas-meeting-46/</url-path>
+      <url-path>/my-meeting-46/</url-path>
       <date-begin>2013-01-25T14:15:39.000-07:00</date-begin>
       <date-created>2013-01-25T14:15:47.287-07:00</date-created>
       <date-modified>2013-01-25T14:27:59.050-07:00</date-modified>
     </sco>
     <sco sco-id="26156" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>ENGL-2100: Course Conference [27]</name>
-      <url-path>/canvas-meeting-27/</url-path>
+      <url-path>/my-meeting-27/</url-path>
       <date-begin>2013-01-31T15:04:53.000-07:00</date-begin>
       <date-created>2013-01-31T15:05:00.680-07:00</date-created>
       <date-modified>2013-01-31T15:14:11.273-07:00</date-modified>
     </sco>
     <sco sco-id="25924" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>IE9 1/26: Course Conference [18848]</name>
-      <url-path>/canvas-meeting-18848/</url-path>
+      <url-path>/my-meeting-18848/</url-path>
       <date-begin>2013-01-15T12:52:08.000-07:00</date-begin>
       <date-created>2013-01-15T12:52:12.113-07:00</date-created>
       <date-modified>2013-01-15T12:52:12.113-07:00</date-modified>
     </sco>
     <sco sco-id="25930" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>IE9 1/26: Group Conference [18849]</name>
-      <url-path>/canvas-meeting-18849/</url-path>
+      <url-path>/my-meeting-18849/</url-path>
       <date-begin>2013-01-15T14:04:35.000-07:00</date-begin>
       <date-created>2013-01-15T14:04:39.303-07:00</date-created>
       <date-modified>2013-01-15T14:16:56.483-07:00</date-modified>
     </sco>
     <sco sco-id="26096" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>LTIDemo: Course Conference [44]</name>
-      <url-path>/canvas-meeting-44/</url-path>
+      <url-path>/my-meeting-44/</url-path>
       <date-begin>2013-01-25T14:15:03.000-07:00</date-begin>
       <date-created>2013-01-25T14:15:11.373-07:00</date-created>
       <date-modified>2013-01-25T14:26:22.120-07:00</date-modified>
     </sco>
     <sco sco-id="26122" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>LTIDemo: Course Conference [47]</name>
-      <url-path>/canvas-meeting-47/</url-path>
+      <url-path>/my-meeting-47/</url-path>
       <date-begin>2013-01-25T14:17:59.000-07:00</date-begin>
       <date-created>2013-01-25T14:18:06.710-07:00</date-created>
       <date-modified>2013-01-25T14:29:11.300-07:00</date-modified>
     </sco>
     <sco sco-id="26087" source-sco-id="" folder-id="25915" type="meeting" icon="meeting" display-seq="0" duration="" is-folder="0">
       <name>STC: Course Conference [19114]</name>
-      <url-path>/canvas-meeting-19114/</url-path>
+      <url-path>/my-meeting-19114/</url-path>
       <date-begin>2013-01-25T10:16:36.000-07:00</date-begin>
       <date-created>2013-01-25T10:16:44.260-07:00</date-created>
       <date-modified>2013-01-25T10:38:59.190-07:00</date-modified>

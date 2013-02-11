@@ -1,26 +1,26 @@
 module AdobeConnect
   class User
-    attr_reader :id, :canvas_user, :service, :errors
+    attr_reader :id, :app_user, :service, :errors
 
-    def initialize(canvas_user, service = Service.new)
-      @canvas_user = canvas_user
-      @service     = service
-      @errors      = []
+    def initialize(app_user, service = Service.new)
+      @app_user = app_user
+      @service  = service
+      @errors   = []
     end
 
     def username
-      canvas_user.email
+      app_user.email
     end
 
     def password
-      Digest::MD5.hexdigest(@canvas_user.uuid)[0..9]
+      Digest::MD5.hexdigest(@app_user.uuid)[0..9]
     end
 
     def save
-      response = service.principal_update(:first_name => canvas_user.first_name,
-        :last_name => canvas_user.last_name, :login => canvas_user.email,
+      response = service.principal_update(:first_name => app_user.first_name,
+        :last_name => app_user.last_name, :login => app_user.email,
         :password => password, :type => 'user', :has_children => 0,
-        :email => canvas_user.email)
+        :email => app_user.email)
 
       if response.at_xpath('//status').attr('code') == 'ok'
         true
@@ -30,15 +30,15 @@ module AdobeConnect
       end
     end
 
-    def self.create(canvas_user)
-      user = AdobeConnect::User.new(canvas_user)
+    def self.create(app_user)
+      user = AdobeConnect::User.new(app_user)
       user.save
 
       user
     end
 
-    def self.find(canvas_user)
-      user     = AdobeConnect::User.new(canvas_user)
+    def self.find(app_user)
+      user     = AdobeConnect::User.new(app_user)
       response = user.service.principal_list(:filter_login => user.username)
 
       if principal = response.at_xpath('//principal')

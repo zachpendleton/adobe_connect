@@ -38,14 +38,14 @@ class AdobeConnectMeetingFolderTest < MiniTest::Unit::TestCase
 
     AdobeConnect::Service.any_instance.
       expects(:request).
-      with('sco-search-by-field', :query => 'canvas_meetings',
+      with('sco-search-by-field', :query => 'my_meetings',
         :filter_type => 'folder', :field => 'name').
       returns(ac_response)
 
-    folder = AdobeConnect::MeetingFolder.find('canvas_meetings')
+    folder = AdobeConnect::MeetingFolder.find('my_meetings')
 
     assert_instance_of        AdobeConnect::MeetingFolder, folder
-    assert_equal folder.name, 'canvas_meetings'
+    assert_equal folder.name, 'my_meetings'
     assert_equal folder.id,   '25915'
     assert_equal folder.url,  '/meeting-path/'
   end

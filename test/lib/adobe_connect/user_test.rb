@@ -14,17 +14,17 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   FIND_ERROR   = File.read('test/fixtures/user_find_error.xml')
 
   def setup
-    @canvas_user  = stub(:first_name => 'Don', :last_name => 'Draper',
+    @app_user  = stub(:first_name => 'Don', :last_name => 'Draper',
       :email => 'test@example.com', :uuid => '12345')
-    @connect_user = AdobeConnect::User.new(@canvas_user)
+    @connect_user = AdobeConnect::User.new(@app_user)
   end
 
   def test_initialize_should_take_a_user
-    assert_equal @connect_user.canvas_user, @canvas_user
+    assert_equal @connect_user.app_user, @app_user
   end
 
-  def test_username_should_be_canvas_user_email
-    assert_equal @connect_user.username, @canvas_user.email
+  def test_username_should_be_app_user_email
+    assert_equal @connect_user.username, @app_user.email
   end
 
   def test_password_should_create_a_unique_password
@@ -41,10 +41,10 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     ac_response = AdobeConnect::Response.new(response)
 
     @connect_user.service.expects(:principal_update).
-      with(:first_name => @canvas_user.first_name,
-        :last_name => @canvas_user.last_name, :login => @connect_user.username,
+      with(:first_name => @app_user.first_name,
+        :last_name => @app_user.last_name, :login => @connect_user.username,
         :password => @connect_user.password, :type => 'user', :has_children => 0,
-        :email => @canvas_user.email).
+        :email => @app_user.email).
       returns(ac_response)
 
     assert @connect_user.save
@@ -72,7 +72,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   def test_create_should_return_a_new_user
     AdobeConnect::User.any_instance.expects(:save).returns(true)
 
-    connect_user = AdobeConnect::User.create(@canvas_user)
+    connect_user = AdobeConnect::User.create(@app_user)
     assert_instance_of AdobeConnect::User, connect_user
   end
 
@@ -84,8 +84,8 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
       with(:filter_login => 'test@example.com').
       returns(ac_response)
 
-    canvas_user  = stub(:email => 'test@example.com')
-    connect_user = AdobeConnect::User.find(canvas_user)
+    app_user  = stub(:email => 'test@example.com')
+    connect_user = AdobeConnect::User.find(app_user)
     assert_instance_of AdobeConnect::User, connect_user
   end
 
@@ -96,8 +96,8 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     AdobeConnect::Service.any_instance.expects(:principal_list).
       returns(ac_response)
 
-    canvas_user  = stub(:email => 'notfound@example.com')
-    connect_user = AdobeConnect::User.find(canvas_user)
+    app_user  = stub(:email => 'notfound@example.com')
+    connect_user = AdobeConnect::User.find(app_user)
     assert_nil connect_user
   end
 end
