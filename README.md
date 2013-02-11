@@ -1,5 +1,7 @@
 # AdobeConnect
 
+[![Build Status](https://secure.travis-ci.org/zachpendleton/adobe_connect.png)](http://travis-ci.org/zachpendleton/adobe_connect)
+
 This gem provides a wrapper for interacting with the Adobe Connect API that
 (hopefully) sucks less than interacting with the Adobe Connect API by itself.
 
