@@ -17,10 +17,10 @@ module AdobeConnect
     end
 
     def save
-      response = service.principal_update(first_name: canvas_user.first_name,
-        last_name: canvas_user.last_name, login: canvas_user.email,
-        password: password, type: 'user', has_children: 0,
-        email: canvas_user.email)
+      response = service.principal_update(:first_name => canvas_user.first_name,
+        :last_name => canvas_user.last_name, :login => canvas_user.email,
+        :password => password, :type => 'user', :has_children => 0,
+        :email => canvas_user.email)
 
       if response.at_xpath('//status').attr('code') == 'ok'
         true
@@ -39,7 +39,7 @@ module AdobeConnect
 
     def self.find(canvas_user)
       user     = AdobeConnect::User.new(canvas_user)
-      response = user.service.principal_list(filter_login: user.username)
+      response = user.service.principal_list(:filter_login => user.username)
 
       if principal = response.at_xpath('//principal')
         user.instance_variable_set(:@id, principal.attr('principal-id'))

@@ -32,14 +32,14 @@ class AdobeConnectMeetingFolderTest < MiniTest::Unit::TestCase
   end
 
   def test_find_returns_a_new_folder
-    response = mock(status: 200)
+    response = mock(:status => 200)
     response.expects(:body).returns(FOLDER_SUCCESS)
     ac_response = AdobeConnect::Response.new(response)
 
     AdobeConnect::Service.any_instance.
       expects(:request).
-      with('sco-search-by-field', query: 'canvas_meetings',
-        filter_type: 'folder', field: 'name').
+      with('sco-search-by-field', :query => 'canvas_meetings',
+        :filter_type => 'folder', :field => 'name').
       returns(ac_response)
 
     folder = AdobeConnect::MeetingFolder.find('canvas_meetings')
@@ -51,7 +51,7 @@ class AdobeConnectMeetingFolderTest < MiniTest::Unit::TestCase
   end
 
   def test_contents_returns_folder_contents
-    response = mock(status: 200)
+    response = mock(:status => 200)
     response.expects(:body).returns(FOLDER_CONTENTS)
     ac_response = AdobeConnect::Response.new(response)
     @folder.service.expects(:sco_contents).returns(ac_response)

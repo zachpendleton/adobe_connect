@@ -15,9 +15,9 @@ module AdobeConnect
 
     def self.find(name, service = AdobeConnect::Service.new)
       response = service.sco_search_by_field(
-        query: name,
-        filter_type: 'folder',
-        field: 'name')
+        :query       => name,
+        :filter_type => 'folder',
+        :field       => 'name')
 
       MeetingFolder.new(response.at_xpath('//sco').attr('sco-id'),
         response.at_xpath('//name').text,
