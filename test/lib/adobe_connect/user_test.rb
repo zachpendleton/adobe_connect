@@ -8,10 +8,10 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     domain   'http://example.com'
   end
 
-  SAVE_SUCCESS = File.read('test/fixtures/user_save_success.xml')
-  SAVE_ERROR   = File.read('test/fixtures/user_save_error.xml')
-  FIND_SUCCESS = File.read('test/fixtures/user_find_success.xml')
-  FIND_ERROR   = File.read('test/fixtures/user_find_error.xml')
+  SAVE_SUCCESS = File.read(File.expand_path('../../fixtures/user_save_success.xml', File.dirname(__FILE__)))
+  SAVE_ERROR   = File.read(File.expand_path('../../fixtures/user_save_error.xml', File.dirname(__FILE__)))
+  FIND_SUCCESS = File.read(File.expand_path('../../fixtures/user_find_success.xml', File.dirname(__FILE__)))
+  FIND_ERROR   = File.read(File.expand_path('../../fixtures/user_find_error.xml', File.dirname(__FILE__)))
 
   def setup
     @app_user  = stub(:first_name => 'Don', :last_name => 'Draper',
@@ -36,7 +36,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   end
 
   def test_save_persists_user_to_connect_server
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(SAVE_SUCCESS)
     ac_response = AdobeConnect::Response.new(response)
 
@@ -51,7 +51,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   end
 
   def test_save_returns_false_on_failure
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(SAVE_ERROR)
 
     @connect_user.service.
@@ -61,7 +61,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   end
 
   def test_save_stores_errors_on_failure
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(SAVE_ERROR)
 
     @connect_user.service.
@@ -79,7 +79,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   end
 
   def test_find_should_return_an_existing_user
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(FIND_SUCCESS)
     AdobeConnect::Service.any_instance.expects(:principal_list).
       with(:filter_login => 'test@example.com').
@@ -91,7 +91,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   end
 
   def test_find_should_set_user_attributes
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(FIND_ERROR)
     AdobeConnect::Service.any_instance.expects(:principal_list).
       returns(AdobeConnect::Response.new(response))

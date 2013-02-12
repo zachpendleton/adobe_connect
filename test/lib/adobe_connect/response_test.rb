@@ -11,7 +11,7 @@ class AdobeConnectResponseTest < MiniTest::Unit::TestCase
   END
 
   def setup
-    response  = stub(:status => 200, :headers => TEST_HEADERS, :body => TEST_BODY)
+    response  = stub(:code => "200", :headers => TEST_HEADERS, :body => TEST_BODY)
     @response = AdobeConnect::Response.new(response)
   end
 
