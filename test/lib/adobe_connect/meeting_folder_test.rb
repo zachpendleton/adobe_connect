@@ -8,8 +8,8 @@ class AdobeConnectMeetingFolderTest < MiniTest::Unit::TestCase
     domain   'http://example.com'
   end
 
-  FOLDER_SUCCESS  = File.read('test/fixtures/folder_success.xml')
-  FOLDER_CONTENTS = File.read('test/fixtures/folder_contents.xml')
+  FOLDER_SUCCESS  = File.read(File.expand_path('../../fixtures/folder_success.xml', File.dirname(__FILE__)))
+  FOLDER_CONTENTS = File.read(File.expand_path('../../fixtures/folder_contents.xml', File.dirname(__FILE__)))
 
   def setup
     @folder = AdobeConnect::MeetingFolder.new('1', 'test folder', '/test-meeting/')
@@ -32,7 +32,7 @@ class AdobeConnectMeetingFolderTest < MiniTest::Unit::TestCase
   end
 
   def test_find_returns_a_new_folder
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(FOLDER_SUCCESS)
     ac_response = AdobeConnect::Response.new(response)
 
@@ -51,7 +51,7 @@ class AdobeConnectMeetingFolderTest < MiniTest::Unit::TestCase
   end
 
   def test_contents_returns_folder_contents
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(FOLDER_CONTENTS)
     ac_response = AdobeConnect::Response.new(response)
     @folder.service.expects(:sco_contents).returns(ac_response)
