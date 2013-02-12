@@ -10,7 +10,7 @@ module AdobeConnect
     end
 
     def contents
-      service.sco_contents(sco_id: id)
+      service.sco_contents(:sco_id => id)
     end
 
     def self.find(name, service = AdobeConnect::Service.new)
