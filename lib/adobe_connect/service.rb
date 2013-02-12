@@ -12,7 +12,8 @@ module AdobeConnect
     def log_in
       response = request('login', { :login => username, :password => password }, false)
       if response.at_xpath('//status').attr('code') == 'ok'
-        @session       = response.fetch('set-cookie').match(/(?<=BREEZESESSION=)[^;]+/)[0]
+        session_regex  = /BREEZESESSION=([^;]+)/
+        @session       = response.fetch('set-cookie').match(session_regex)[1]
         @authenticated = true
       else
         false
