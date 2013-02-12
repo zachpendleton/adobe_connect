@@ -50,7 +50,8 @@ module AdobeConnect
       end
 
       query_string = ParamFormatter.new(params).format
-      client.get("/api/xml?action=#{action}#{query_string}")
+      response     = client.get("/api/xml?action=#{action}#{query_string}")
+      AdobeConnect::Response.new(response)
     end
   end
 end

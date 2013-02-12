@@ -24,10 +24,9 @@ class AdobeConnectServiceTest < MiniTest::Unit::TestCase
 
   def test_log_in_authenticates
     response = mock(:status => 200)
-    response.expects(:fetch).returns('BREEZESESSION=12345')
+    response.expects(:fetch).with('set-cookie').returns('BREEZESESSION=12345')
     response.expects(:body).returns(LOGIN_SUCCESS)
-    ac_response = AdobeConnect::Response.new(response)
-    @service.client.stubs(:get).returns(ac_response)
+    @service.client.stubs(:get).returns(response)
 
     @service.log_in
     assert @service.authenticated?
@@ -37,10 +36,9 @@ class AdobeConnectServiceTest < MiniTest::Unit::TestCase
     response = mock(:status => 200)
     response.expects(:fetch).with('set-cookie').returns('BREEZESESSION=12345;HttpOnly;path=/')
     response.expects(:body).returns(LOGIN_SUCCESS)
-    ac_response = AdobeConnect::Response.new(response)
     @service.client.stubs(:get).
       with("/api/xml?action=login&login=name&password=password").
-      returns(ac_response)
+      returns(response)
 
     @service.log_in
     assert_equal @service.session, '12345'
@@ -49,8 +47,7 @@ class AdobeConnectServiceTest < MiniTest::Unit::TestCase
   def test_log_in_returns_false_on_failure
     response = mock(:status => 200)
     response.expects(:body).returns(LOGIN_FAIL)
-    ac_response = AdobeConnect::Response.new(response)
-    @service.client.stubs(:get).returns(ac_response)
+    @service.client.stubs(:get).returns(response)
 
     refute @service.log_in
   end

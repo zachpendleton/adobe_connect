@@ -53,18 +53,20 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   def test_save_returns_false_on_failure
     response = mock(:status => 200)
     response.expects(:body).returns(SAVE_ERROR)
-    ac_response = AdobeConnect::Response.new(response)
 
-    @connect_user.service.expects(:principal_update).returns(ac_response)
+    @connect_user.service.
+      expects(:principal_update).
+      returns(AdobeConnect::Response.new(response))
     refute @connect_user.save
   end
 
   def test_save_stores_errors_on_failure
     response = mock(:status => 200)
     response.expects(:body).returns(SAVE_ERROR)
-    ac_response = AdobeConnect::Response.new(response)
 
-    @connect_user.service.expects(:principal_update).returns(ac_response)
+    @connect_user.service.
+      expects(:principal_update).
+      returns(AdobeConnect::Response.new(response))
     @connect_user.save
     assert_equal 3, @connect_user.errors.length
   end
@@ -79,10 +81,9 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   def test_find_should_return_an_existing_user
     response = mock(:status => 200)
     response.expects(:body).returns(FIND_SUCCESS)
-    ac_response = AdobeConnect::Response.new(response)
     AdobeConnect::Service.any_instance.expects(:principal_list).
       with(:filter_login => 'test@example.com').
-      returns(ac_response)
+      returns(AdobeConnect::Response.new(response))
 
     app_user  = stub(:email => 'test@example.com')
     connect_user = AdobeConnect::User.find(app_user)
@@ -92,9 +93,8 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   def test_find_should_set_user_attributes
     response = mock(:status => 200)
     response.expects(:body).returns(FIND_ERROR)
-    ac_response = AdobeConnect::Response.new(response)
     AdobeConnect::Service.any_instance.expects(:principal_list).
-      returns(ac_response)
+      returns(AdobeConnect::Response.new(response))
 
     app_user  = stub(:email => 'notfound@example.com')
     connect_user = AdobeConnect::User.find(app_user)
