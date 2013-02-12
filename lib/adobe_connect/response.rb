@@ -4,7 +4,7 @@ module AdobeConnect
 
     def initialize(response)
       @response = response
-      @status   = response.status
+      @status   = response.code.to_i
       @body     = Nokogiri::XML(response.body)
     end
 

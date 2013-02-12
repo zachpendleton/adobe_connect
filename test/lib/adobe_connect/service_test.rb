@@ -1,8 +1,9 @@
 require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
 class AdobeConnectServiceTest < MiniTest::Unit::TestCase
-  LOGIN_SUCCESS = File.read('test/fixtures/log_in_success.xml')
-  LOGIN_FAIL    = File.read('test/fixtures/log_in_fail.xml')
+
+  LOGIN_SUCCESS = File.read(File.expand_path('../../fixtures/log_in_success.xml', File.dirname(__FILE__)))
+  LOGIN_FAIL    = File.read(File.expand_path('../../fixtures/log_in_fail.xml', File.dirname(__FILE__)))
 
   def setup
     @service = AdobeConnect::Service.new(:username => 'name', :password => 'password',
@@ -23,7 +24,7 @@ class AdobeConnectServiceTest < MiniTest::Unit::TestCase
   end
 
   def test_log_in_authenticates
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:fetch).with('set-cookie').returns('BREEZESESSION=12345')
     response.expects(:body).returns(LOGIN_SUCCESS)
     @service.client.stubs(:get).returns(response)
@@ -33,7 +34,7 @@ class AdobeConnectServiceTest < MiniTest::Unit::TestCase
   end
 
   def test_log_in_creates_a_session
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:fetch).with('set-cookie').returns('BREEZESESSION=12345;HttpOnly;path=/')
     response.expects(:body).returns(LOGIN_SUCCESS)
     @service.client.stubs(:get).
@@ -45,7 +46,7 @@ class AdobeConnectServiceTest < MiniTest::Unit::TestCase
   end
 
   def test_log_in_returns_false_on_failure
-    response = mock(:status => 200)
+    response = mock(:code => '200')
     response.expects(:body).returns(LOGIN_FAIL)
     @service.client.stubs(:get).returns(response)
 
