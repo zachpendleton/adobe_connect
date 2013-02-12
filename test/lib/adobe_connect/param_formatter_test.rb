@@ -7,23 +7,27 @@ class AdobeConnectParamFormatterTest < MiniTest::Unit::TestCase
     @query_string = @formatter.format
   end
 
-  def test_it_should_format_params_hash_to_a_string
+  def test_format_formats_params_hash_to_a_string
     assert_instance_of String, @query_string
   end
 
-  def test_it_should_include_basic_params
+  def test_format_includes_basic_params
     assert_match Regexp.new('a=1'), @query_string
   end
 
-  def test_it_should_escape_params
+  def test_format_sorts_params_alphabetically
+    assert_match Regexp.new('a=.+b=.+dashed\-value'), @query_string
+  end
+
+  def test_format_escapes_params
     assert_match Regexp.new('b=param%20value'), @query_string
   end
 
-  def test_it_should_dasherize_underscored_keys
+  def test_format_dasherizes_underscored_keys
     assert_match Regexp.new('dashed-value'), @query_string
   end
 
-  def test_it_should_include_a_leading_ampersand
+  def test_format_includes_a_leading_ampersand
     assert_match Regexp.new('^&'), @query_string
   end
 
