@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'activesupport', '>= 2.3.16'
   gem.add_dependency 'nokogiri',      '~> 1.5.6'
   gem.add_dependency 'pry',           '>= 0.9.11.4'
-  gem.add_dependency 'rake',          '~> 10.0.3'
+  gem.add_dependency 'rake',          '>= 0.9.2'
 
   gem.add_development_dependency 'minitest',    '~> 4.6.0'
   gem.add_development_dependency 'mocha',       '~> 0.13.2'
