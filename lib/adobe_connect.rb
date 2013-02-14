@@ -10,4 +10,5 @@ require 'adobe_connect/param_formatter'
 require 'adobe_connect/meeting_folder'
 require 'adobe_connect/user'
 
+# Public: Namespace for AdobeConnect classes/modules.
 module AdobeConnect; end
