@@ -50,6 +50,23 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     assert @connect_user.save
   end
 
+  def test_save_stores_the_principal_id_on_the_user
+    response = mock(:code => '200')
+    response.expects(:body).returns(SAVE_SUCCESS)
+    ac_response = AdobeConnect::Response.new(response)
+
+    @connect_user.service.expects(:principal_update).
+      with(:first_name => @app_user.first_name,
+        :last_name => @app_user.last_name, :login => @connect_user.username,
+        :password => @connect_user.password, :type => 'user', :has_children => 0,
+        :email => @app_user.email).
+      returns(ac_response)
+
+    @connect_user.save
+
+    assert_equal "26243", @connect_user.id
+  end
+
   def test_save_returns_false_on_failure
     response = mock(:code => '200')
     response.expects(:body).returns(SAVE_ERROR)

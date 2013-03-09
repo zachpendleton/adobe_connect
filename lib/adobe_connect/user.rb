@@ -49,6 +49,7 @@ module AdobeConnect
         :email => app_user.email)
 
       if response.at_xpath('//status').attr('code') == 'ok'
+        self.id = response.at_xpath('//principal').attr('principal-id')
         true
       else
         save_errors(response)
@@ -86,6 +87,8 @@ module AdobeConnect
     end
 
     private
+    attr_writer :id
+
     # Internal: Store request errors in @errors.
     #
     # response - An AdobeConnect::Response.
