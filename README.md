@@ -2,8 +2,18 @@
 
 [![Build Status](https://secure.travis-ci.org/zachpendleton/adobe_connect.png)](http://travis-ci.org/zachpendleton/adobe_connect)
 
-This gem provides a wrapper for interacting with the Adobe Connect API that
-(hopefully) sucks less than interacting with the Adobe Connect API by itself.
+AdobeConnect is a Ruby Gem that provides a wrapper for interacting with the
+Adobe Connect API that (hopefully) sucks less than dealing with the Adobe
+Connect API itself.
+
+It provides methods that correspond to each of the Connect API calls, so you
+can do awesome stuff like:
+
+```ruby
+connect = AdobeConnect::Service.new
+connect.log_in
+connect.principal_list #=> returns a list of users
+```
 
 ## Installation
 
@@ -22,23 +32,25 @@ Or install it yourself as:
 ## Get started
 
 You can get started by running `adobe_connect_console` in your terminal. This
-will open up a new Pry session with all of the Connect classes loaded.
+will open up a new Pry session with all of the AdobeConnect classes loaded.
 
-    # start by configuring it with a username, password, and domain.
-    AdobeConnect::Config.declare do
-      username 'test@example.com'
-      password 'password'
-      domain   'http://connect.example.com'
-    end
+```ruby
+# start by configuring it with a username, password, and domain.
+AdobeConnect::Config.declare do
+  username 'test@example.com'
+  password 'password'
+  domain   'http://connect.example.com'
+end
 
-    connect = AdobeConnect::Service.new
+connect = AdobeConnect::Service.new
 
-    # log in so you have a session
-    connect.log_in #=> true
+# log in so you have a session
+connect.log_in #=> true
 
-    # get crazy with your bad self
-    connect.principal_list(filter_login: 'test@example.com')
-    connect.sco_contents_by_url(url_path: '/whatever/')
+# get crazy with your bad self
+connect.principal_list(filter_login: 'test@example.com')
+connect.sco_contents_by_url(url_path: '/whatever/')
+```
 
 ## Details
 

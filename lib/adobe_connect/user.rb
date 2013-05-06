@@ -5,48 +5,47 @@ module AdobeConnect
     # Public: SCO-ID from the Adobe Connect instance.
     attr_reader :id
 
-    # Public: Generic user object.
-    attr_reader :app_user
-
     attr_reader :service, :errors
+    attr_accessor :first_name, :last_name, :email, :username, :uuid
 
     # Public: Create a new AdobeConnect User.
     #
-    # app_user - A user object with the following methods:
-    #            first_name - User's first name.
-    #            last_name  - User's last name.
-    #            email      - The email address for the user.
-    #            uuid       - A unique identifier for this user (used to
-    #                          generate a password).
+    # user_options - A hash with the following keys:
+    #                first_name - User's first name.
+    #                last_name  - User's last name.
+    #                email      - The email address for the user.
+    #                uuid       - A unique identifier for this user (used to
+    #                             generate a password).
     # service - An AdobeConnect::Service object (default: Service.new)
-    def initialize(app_user, service = Service.new)
-      @app_user = app_user
+    def initialize(user_options, service = Service.new)
+      user_options.each { |key, value| send(:"#{key}=", value) }
       @service  = service
       @errors   = []
     end
 
-    # Public: Getter for the Connect user's username.
+    # Public: Getter for the Connect user's username. If no username is
+    #   given, use the email.
     #
-    # Returns an email string.
+    # Returns a username string.
     def username
-      app_user.email
+      @username || email
     end
 
     # Public: Generate a password for this connect user.
     #
     # Returns a password string.
     def password
-      Digest::MD5.hexdigest(@app_user.uuid)[0..9]
+      Digest::MD5.hexdigest(uuid)[0..9]
     end
 
     # Public: Save this user to the Adobe Connect instance.
     #
     # Returns a boolean.
     def save
-      response = service.principal_update(:first_name => app_user.first_name,
-        :last_name => app_user.last_name, :login => app_user.email,
+      response = service.principal_update(:first_name => first_name,
+        :last_name => last_name, :login => username,
         :password => password, :type => 'user', :has_children => 0,
-        :email => app_user.email)
+        :email => email)
 
       if response.at_xpath('//status').attr('code') == 'ok'
         self.id = response.at_xpath('//principal').attr('principal-id')
@@ -59,12 +58,12 @@ module AdobeConnect
 
     # Public: Create a Connect user from the given app user.
     #
-    # app_user - A generic user object (see #initialize for required
+    # user_options - Generic user options (see #initialize for required
     #   attributes).
     #
     # Returns an AdobeConnect::User.
-    def self.create(app_user)
-      user = AdobeConnect::User.new(app_user)
+    def self.create(user_options)
+      user = AdobeConnect::User.new(user_options)
       user.save
 
       user
@@ -72,12 +71,12 @@ module AdobeConnect
 
     # Public: Find the given app user on the Connect server.
     #
-    # app_user - A generic user object (see #initialize for required
+    # app_user - Generic user options (see #initialize for required
     #   attributes).
     #
     # Returns an AdobeConnect::User or nil.
-    def self.find(app_user)
-      user     = AdobeConnect::User.new(app_user)
+    def self.find(user_options)
+      user     = AdobeConnect::User.new(user_options)
       response = user.service.principal_list(:filter_login => user.username)
 
       if principal = response.at_xpath('//principal')

@@ -14,24 +14,31 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   FIND_ERROR   = File.read(File.expand_path('../../fixtures/user_find_error.xml', File.dirname(__FILE__)))
 
   def setup
-    @app_user  = stub(:first_name => 'Don', :last_name => 'Draper',
-      :email => 'test@example.com', :uuid => '12345')
-    @connect_user = AdobeConnect::User.new(@app_user)
+    @user_options = { first_name: 'Don', last_name: 'Draper',
+      email: 'test@example.com', uuid: '12345' }
+    @connect_user = AdobeConnect::User.new(@user_options)
   end
 
-  def test_initialize_should_take_a_user
-    assert_equal @connect_user.app_user, @app_user
+  def test_initialize_takes_a_user
+    @user_options.each do |key, value|
+      assert_equal @connect_user.send(key), value
+    end
   end
 
-  def test_username_should_be_app_user_email
-    assert_equal @connect_user.username, @app_user.email
+  def test_username_falls_back_to_email
+    assert_equal @connect_user.email, @connect_user.username
   end
 
-  def test_password_should_create_a_unique_password
+  def test_username_is_settable
+    @connect_user.username = 'my_username'
+    assert_equal 'my_username', @connect_user.username
+  end
+
+  def test_password_creates_a_unique_password
     assert_equal @connect_user.password, @connect_user.password
   end
 
-  def test_password_should_be_ten_characters_long
+  def test_password_is_ten_characters_long
     assert_equal @connect_user.password.length, 10
   end
 
@@ -41,10 +48,10 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     ac_response = AdobeConnect::Response.new(response)
 
     @connect_user.service.expects(:principal_update).
-      with(:first_name => @app_user.first_name,
-        :last_name => @app_user.last_name, :login => @connect_user.username,
+      with(:first_name => @user_options[:first_name],
+        :last_name => @user_options[:last_name], :login => @connect_user.username,
         :password => @connect_user.password, :type => 'user', :has_children => 0,
-        :email => @app_user.email).
+        :email => @connect_user.email).
       returns(ac_response)
 
     assert @connect_user.save
@@ -56,10 +63,10 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     ac_response = AdobeConnect::Response.new(response)
 
     @connect_user.service.expects(:principal_update).
-      with(:first_name => @app_user.first_name,
-        :last_name => @app_user.last_name, :login => @connect_user.username,
+      with(:first_name => @user_options[:first_name],
+        :last_name => @user_options[:last_name], :login => @connect_user.username,
         :password => @connect_user.password, :type => 'user', :has_children => 0,
-        :email => @app_user.email).
+        :email => @user_options[:email]).
       returns(ac_response)
 
     @connect_user.save
@@ -91,7 +98,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   def test_create_should_return_a_new_user
     AdobeConnect::User.any_instance.expects(:save).returns(true)
 
-    connect_user = AdobeConnect::User.create(@app_user)
+    connect_user = AdobeConnect::User.create(@user_options)
     assert_instance_of AdobeConnect::User, connect_user
   end
 
@@ -102,8 +109,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
       with(:filter_login => 'test@example.com').
       returns(AdobeConnect::Response.new(response))
 
-    app_user  = stub(:email => 'test@example.com')
-    connect_user = AdobeConnect::User.find(app_user)
+    connect_user = AdobeConnect::User.find(email: 'test@example.com')
     assert_instance_of AdobeConnect::User, connect_user
   end
 
@@ -113,8 +119,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     AdobeConnect::Service.any_instance.expects(:principal_list).
       returns(AdobeConnect::Response.new(response))
 
-    app_user  = stub(:email => 'notfound@example.com')
-    connect_user = AdobeConnect::User.find(app_user)
+    connect_user = AdobeConnect::User.find(email: 'notfound@example.com')
     assert_nil connect_user
   end
 end
