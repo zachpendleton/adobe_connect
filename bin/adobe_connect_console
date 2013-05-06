@@ -1,5 +1,16 @@
 #!/usr/bin/env ruby
 
+error_message = <<-END
+ERROR: adobe_connect_console requires pry to be installed.
+
+Run `gem install pry` and try again.
+END
+
 system <<-END
-  pry --require adobe_connect
+  if [ -z `which asdf` ]; then
+    echo '#{error_message}'
+    exit 1
+  else
+    pry --require adobe_connect
+  fi
 END
