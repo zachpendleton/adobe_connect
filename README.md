@@ -19,7 +19,7 @@ connect.principal_list #=> returns a list of users
 
 Add this line to your application's Gemfile:
 
-    gem 'adobe_connect', '0.0.8'
+    gem 'adobe_connect', '1.0.0'
 
 And then run:
 
