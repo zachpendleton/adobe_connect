@@ -10,6 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['zachpendleton@gmail.com']
   gem.description   = %q{An API wrapper for interacting with Adobe Connect services.}
   gem.summary       = %q{An API wrapper for Adobe Connect services.}
+  gem.license       = 'MIT'
   gem.homepage      = 'https://github.com/zachpendleton/adobe_connect'
 
   gem.files         = `git ls-files`.split($/)
