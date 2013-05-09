@@ -14,6 +14,7 @@ module AdobeConnect
     #                first_name - User's first name.
     #                last_name  - User's last name.
     #                email      - The email address for the user.
+    #                username   - The login for the connect user.
     #                uuid       - A unique identifier for this user (used to
     #                             generate a password).
     #                send_email - The server sends a welcome e-mail with login information 
