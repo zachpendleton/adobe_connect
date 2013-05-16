@@ -34,6 +34,11 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
     assert_equal 'my_username', @connect_user.username
   end
 
+  def test_send_email_is_settable
+    @connect_user.send_email = 'me@example.com'
+    assert_equal 'me@example.com', @connect_user.send_email
+  end
+
   def test_password_creates_a_unique_password
     assert_equal @connect_user.password, @connect_user.password
   end
