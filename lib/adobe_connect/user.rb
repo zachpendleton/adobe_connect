@@ -6,7 +6,7 @@ module AdobeConnect
     attr_reader :id
 
     attr_reader :service, :errors
-    attr_accessor :first_name, :last_name, :email, :username, :uuid
+    attr_accessor :first_name, :last_name, :email, :username, :uuid, :send_email
 
     # Public: Create a new AdobeConnect User.
     #
