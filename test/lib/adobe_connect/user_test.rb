@@ -56,7 +56,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
       with(:first_name => @user_options[:first_name],
         :last_name => @user_options[:last_name], :login => @connect_user.username,
         :password => @connect_user.password, :type => 'user', :has_children => 0,
-        :email => @connect_user.email).
+        :email => @connect_user.email, :send_email => @connect_user.send_email).
       returns(ac_response)
 
     assert @connect_user.save
@@ -71,7 +71,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
       with(:first_name => @user_options[:first_name],
         :last_name => @user_options[:last_name], :login => @connect_user.username,
         :password => @connect_user.password, :type => 'user', :has_children => 0,
-        :email => @user_options[:email]).
+        :email => @user_options[:email], :send_email => @user_options[:send_email]).
       returns(ac_response)
 
     @connect_user.save
