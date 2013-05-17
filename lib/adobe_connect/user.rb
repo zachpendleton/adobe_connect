@@ -6,7 +6,7 @@ module AdobeConnect
     attr_reader :id
 
     attr_reader :service, :errors
-    attr_accessor :first_name, :last_name, :email, :username, :uuid
+    attr_accessor :first_name, :last_name, :email, :username, :uuid, :send_email
 
     # Public: Create a new AdobeConnect User.
     #
@@ -16,6 +16,8 @@ module AdobeConnect
     #                email      - The email address for the user.
     #                uuid       - A unique identifier for this user (used to
     #                             generate a password).
+    #                send_email - The server sends a welcome e-mail with login information 
+    #                             to the user’s e-mail address.
     # service - An AdobeConnect::Service object (default: Service.new)
     def initialize(user_options, service = Service.new)
       user_options.each { |key, value| send(:"#{key}=", value) }
@@ -45,7 +47,7 @@ module AdobeConnect
       response = service.principal_update(:first_name => first_name,
         :last_name => last_name, :login => username,
         :password => password, :type => 'user', :has_children => 0,
-        :email => email)
+        :email => email, :send_email => send_email)
 
       if response.at_xpath('//status').attr('code') == 'ok'
         self.id = response.at_xpath('//principal').attr('principal-id')
