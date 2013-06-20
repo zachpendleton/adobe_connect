@@ -16,10 +16,19 @@ module AdobeConnect
     #
 
     def attrs
-      { :first_name => first_name,
+      atrs = { :first_name => first_name,
         :last_name => last_name, :login => username,
-        :password => password, :type => 'user', :has_children => 0,
-        :email => email, :send_email => send_email }
+        :email => email, :send_email => send_email,
+        :has_children => 0 }
+      if !self.id.nil?
+        atrs.merge!(:principal_id => self.id)
+      else
+        atrs.merge!(
+          :password => password,
+          :type => 'user'
+        )
+      end
+      atrs
     end
 
     # Public: Getter for the Connect user's username. If no username is
