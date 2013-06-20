@@ -1,6 +1,6 @@
 module AdobeConnect
 
-  # Public: Represents a user in a Connect environment.
+  # Provides base interaction with Adobe Connect for a variety of AC Objects
   class Base
     # Public: SCO-ID from the Adobe Connect instance.
     attr_reader :id
