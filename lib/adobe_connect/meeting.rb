@@ -42,5 +42,23 @@ module AdobeConnect
       super.merge({ :ac_obj_type => 'sco' })
     end
 
+    def self.find_by_url_path(url_path, service = AdobeConnect::Service.new)
+      response = service.sco_by_url(:url_path => url_path)
+
+      ac_meeting = response.at_xpath('//sco')
+
+      m = self.new({}, service)
+
+      m.attrs.each do |atr,v|
+        chld = ac_meeting.at_xpath("//#{atr.to_s.dasherize}")
+        if !chld.nil?
+          send(atr, chld.text)
+        end
+      end
+
+      m.folder_id = ac_meeting.attr('folder-id')
+      m.instance_variable_set(:@id, ac_meeting.attr('sco-id'))
+    end
+
   end
 end
