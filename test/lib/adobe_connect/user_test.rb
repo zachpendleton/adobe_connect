@@ -35,8 +35,8 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
   end
 
   def test_send_email_is_settable
-    @connect_user.send_email = 'me@example.com'
-    assert_equal 'me@example.com', @connect_user.send_email
+    @connect_user.send_email = true
+    assert @connect_user.send_email
   end
 
   def test_password_creates_a_unique_password
@@ -56,7 +56,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
       with(:first_name => @user_options[:first_name],
         :last_name => @user_options[:last_name], :login => @connect_user.username,
         :password => @connect_user.password, :type => 'user', :has_children => 0,
-        :email => @connect_user.email, :send_email => @connect_user.send_email).
+        :email => @connect_user.email, :send_email => false).
       returns(ac_response)
 
     assert @connect_user.save
@@ -71,7 +71,7 @@ class AdobeConnectUserTest < MiniTest::Unit::TestCase
       with(:first_name => @user_options[:first_name],
         :last_name => @user_options[:last_name], :login => @connect_user.username,
         :password => @connect_user.password, :type => 'user', :has_children => 0,
-        :email => @user_options[:email], :send_email => @user_options[:send_email]).
+        :email => @user_options[:email], :send_email => false).
       returns(ac_response)
 
     @connect_user.save

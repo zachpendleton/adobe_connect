@@ -48,7 +48,7 @@ module AdobeConnect
       response = service.principal_update(:first_name => first_name,
         :last_name => last_name, :login => username,
         :password => password, :type => 'user', :has_children => 0,
-        :email => email, :send_email => send_email)
+        :email => email, :send_email => !!send_email)
 
       if response.at_xpath('//status').attr('code') == 'ok'
         self.id = response.at_xpath('//principal').attr('principal-id')
