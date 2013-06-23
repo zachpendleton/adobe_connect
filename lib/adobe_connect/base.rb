@@ -33,6 +33,14 @@ module AdobeConnect
       end
     end
 
+    # Public: Update attributes of the loaded user and save.
+    #
+    # Returns a boolean.
+    def update_attributes(atrs)
+      atrs.each { |key, value| send(:"#{key}=", value) }
+      self.save
+    end
+
     # Public: Create a Connect obj from the given app obj.
     #
     # obj_options - Generic options (see #initialize for required
