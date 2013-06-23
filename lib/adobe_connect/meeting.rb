@@ -47,17 +47,23 @@ module AdobeConnect
 
       ac_meeting = response.at_xpath('//sco')
 
-      m = self.new({}, service)
+      if ac_meeting.present?
+        m = self.new({}, service)
 
-      m.attrs.each do |atr,v|
-        chld = ac_meeting.at_xpath("//#{atr.to_s.dasherize}")
-        if !chld.nil?
-          send(atr, chld.text)
+        m.attrs.each do |atr,v|
+          chld = ac_meeting.at_xpath("//#{atr.to_s.dasherize}")
+          if !chld.nil?
+            m.send(:"#{atr}=", chld.text)
+          end
         end
-      end
 
-      m.folder_id = ac_meeting.attr('folder-id')
-      m.instance_variable_set(:@id, ac_meeting.attr('sco-id'))
+        m.folder_id = ac_meeting.attr('folder-id')
+        m.instance_variable_set(:@id, ac_meeting.attr('sco-id'))
+
+        m
+      else
+        nil
+      end
     end
 
   end
