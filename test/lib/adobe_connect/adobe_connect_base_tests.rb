@@ -26,7 +26,7 @@ module AdobeConnectBaseTests
     assert @connect_obj.save
   end
 
-  def test_save_stores_the_principal_id_on_the_user
+  def test_save_stores_the_obj_id_on_the_obj
     response = mock(:code => '200')
     response.expects(:body).returns(responses[:save_success])
     ac_response = AdobeConnect::Response.new(response)
@@ -68,11 +68,25 @@ module AdobeConnectBaseTests
     assert_instance_of @obj_class, connect_obj
   end
 
+  def test_should_update_obj
+    response = mock(:code => '200')
+    response.expects(:body).returns(responses[:update_success])
+
+    @connect_obj.instance_variable_set(:@id, 26243)
+
+    @connect_obj.service.
+      expects(:"#{@obj_class.config[:ac_obj_type]}_update").
+      returns(AdobeConnect::Response.new(response))
+
+    assert @connect_obj.save
+  end
+
   private
   def responses
     {
       :save_success => File.read(File.expand_path("../../fixtures/#{@ac_class}_save_success.xml", File.dirname(__FILE__))),
-      :save_error   => File.read(File.expand_path("../../fixtures/#{@ac_class}_save_error.xml", File.dirname(__FILE__)))
+      :save_error   => File.read(File.expand_path("../../fixtures/#{@ac_class}_save_error.xml", File.dirname(__FILE__))),
+      :update_success => File.read(File.expand_path("../../fixtures/#{@ac_class}_update_success.xml", File.dirname(__FILE__)))
     }
   end
 
