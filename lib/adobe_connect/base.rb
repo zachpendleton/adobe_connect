@@ -25,7 +25,8 @@ module AdobeConnect
       response = service.send(:"#{acot}_update", self.attrs)
 
       if response.at_xpath('//status').attr('code') == 'ok'
-        self.id = response.at_xpath("//#{acot}").attr("#{acot}-id")
+        # Load the ID if this was a creation
+        self.id = response.at_xpath("//#{acot}").attr("#{acot}-id") if self.id.nil?
         true
       else
         save_errors(response)
@@ -33,7 +34,7 @@ module AdobeConnect
       end
     end
 
-    # Public: Update attributes of the loaded user and save.
+    # Public: Update attributes of the loaded object and save.
     #
     # Returns a boolean.
     def update_attributes(atrs)
