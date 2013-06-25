@@ -36,6 +36,9 @@ module AdobeConnect
 
     # Public: Update attributes of the loaded object and save.
     #
+    # atrs - Generic options (see #initialize for required
+    #   attributes).
+    #
     # Returns a boolean.
     def update_attributes(atrs)
       atrs.each { |key, value| send(:"#{key}=", value) }
