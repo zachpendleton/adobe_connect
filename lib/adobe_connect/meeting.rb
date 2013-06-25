@@ -23,7 +23,7 @@ module AdobeConnect
     end
 
     def attrs
-      atrs = {}
+      atrs = {:type => 'meeting'}
 
       [ :date_end, :date_begin, :description, :name, :url_path ].each do |atr|
         atrs[atr] = send(atr)
@@ -32,7 +32,7 @@ module AdobeConnect
       if !self.id.nil?
         atrs.merge!(:sco_id => self.id)
       else
-        atrs.merge!(:type => 'meeting', :folder_id => folder_id)
+        atrs.merge!(:folder_id => folder_id)
       end
 
       atrs

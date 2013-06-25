@@ -23,7 +23,6 @@ class AdobeConnectMeetingTest < MiniTest::Unit::TestCase
 
     attrs = @connect_meeting.attrs
 
-    assert !attrs.has_key?(:type)
     assert !attrs.has_key?(:folder_id)
     assert attrs.has_key?(:sco_id)
     assert_equal '54321', attrs[:sco_id]
