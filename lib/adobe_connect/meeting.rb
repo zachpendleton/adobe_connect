@@ -14,14 +14,6 @@ module AdobeConnect
     #                url_path    - (optional) Custom url for meeting. One will be generated
     #                              by AC if not provided
     #
-
-    [ :date_end, :date_begin ].each do |atr|
-      define_method atr do
-        val = self.instance_variable_get(:"@#{atr.to_s}")
-        val.utc.strftime('%Y-%m-%dT%H:%M:%SZ') unless val.nil?
-      end
-    end
-
     def attrs
       atrs = {:type => 'meeting'}
 
