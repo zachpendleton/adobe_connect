@@ -8,7 +8,7 @@ module AdobeConnect
     attr_reader :service, :errors
 
     def initialize(obj_options, service = Service.new)
-      obj_options.each { |key, value| send(:"#{key}=", value) }
+      set_attrs(obj_options)
       @service  = service
       @errors   = []
     end
@@ -41,7 +41,7 @@ module AdobeConnect
     #
     # Returns a boolean.
     def update_attributes(atrs)
-      atrs.each { |key, value| send(:"#{key}=", value) }
+      set_attrs(atrs)
       self.save
     end
 
@@ -72,6 +72,16 @@ module AdobeConnect
     # Returns nothing.
     def save_errors(response)
       @errors = response.xpath('//invalid').map(&:attributes)
+    end
+
+    # Internal: Update attributes from an attribute hash
+    #
+    # atrs - A hash of keys that match attributes of this object and
+    #   corresponding values for those attributes.
+    #
+    # Returns nothing.
+    def set_attrs(atrs)
+      atrs.each { |key, value| send(:"#{key}=", value) }
     end
   end
 end
