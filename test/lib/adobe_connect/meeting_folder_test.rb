@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
-class AdobeConnectMeetingFolderTest < MiniTest::Unit::TestCase
+class AdobeConnectMeetingFolderTest < AdobeConnectTestCase
 
   AdobeConnect::Config.declare do
     username 'test@example.com'

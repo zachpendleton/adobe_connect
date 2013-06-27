@@ -6,3 +6,11 @@ require File.expand_path('../lib/adobe_connect.rb', File.dirname(__FILE__))
 
 # Shared base tests for some objs
 require File.expand_path('lib/adobe_connect/adobe_connect_base_tests.rb', File.dirname(__FILE__))
+
+class AdobeConnectTestCase < MiniTest::Unit::TestCase
+  def mock_response(body, code = '200')
+    response = mock(:code => code)
+    response.expects(:body).returns(body)
+    AdobeConnect::Response.new(response)
+  end
+end

@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
-class AdobeConnectParamFormatterTest < MiniTest::Unit::TestCase
+class AdobeConnectParamFormatterTest < AdobeConnectTestCase
   def setup
     params        = { :a => 1, :b => 'param value', 'dashed_value' => 3 }
     @formatter    = AdobeConnect::ParamFormatter.new(params)

@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
-class AdobeConnectMeetingTest < MiniTest::Unit::TestCase
+class AdobeConnectMeetingTest < AdobeConnectTestCase
 
   include AdobeConnectBaseTests
 
