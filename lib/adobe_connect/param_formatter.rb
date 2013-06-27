@@ -17,7 +17,7 @@ module AdobeConnect
     # Returns a query string.
     def format
       params.sort_by { |k, v| k.to_s }.inject(['']) do |array, param|
-        param[1] = format_datetime(param[1]) if param[1].is_a?(Time)
+        param[1] = format_datetime(param[1]) if param[1].respond_to?(:strftime)
         key, value = param.map { |p| ERB::Util.url_encode(p) }
         array << "#{key.dasherize}=#{value}"
       end.join('&')
