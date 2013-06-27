@@ -17,7 +17,7 @@ module AdobeConnect
       {}
     end
 
-    # Public: Save this user to the Adobe Connect instance.
+    # Public: Save this object to the Adobe Connect instance.
     #
     # Returns a boolean.
     def save
