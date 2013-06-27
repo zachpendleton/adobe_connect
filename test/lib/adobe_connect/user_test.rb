@@ -33,21 +33,19 @@ class AdobeConnectUserTest < AdobeConnectTestCase
   end
 
   def test_find_should_return_an_existing_user
-    response = mock(:code => '200')
-    response.expects(:body).returns(responses[:find_success])
+    response = mock_ac_response(responses[:find_success])
     AdobeConnect::Service.any_instance.expects(:principal_list).
       with(:filter_login => 'test@example.com').
-      returns(AdobeConnect::Response.new(response))
+      returns(response)
 
     connect_user = AdobeConnect::User.find(email: 'test@example.com')
     assert_instance_of AdobeConnect::User, connect_user
   end
 
   def test_find_should_set_user_attributes
-    response = mock(:code => '200')
-    response.expects(:body).returns(responses[:find_error])
+    response = mock_ac_response(responses[:find_error])
     AdobeConnect::Service.any_instance.expects(:principal_list).
-      returns(AdobeConnect::Response.new(response))
+      returns(response)
 
     connect_user = AdobeConnect::User.find(email: 'notfound@example.com')
     assert_nil connect_user

@@ -8,9 +8,14 @@ require File.expand_path('../lib/adobe_connect.rb', File.dirname(__FILE__))
 require File.expand_path('lib/adobe_connect/adobe_connect_base_tests.rb', File.dirname(__FILE__))
 
 class AdobeConnectTestCase < MiniTest::Unit::TestCase
+  def mock_ac_response(*args)
+    resp = mock_response(*args)
+    AdobeConnect::Response.new(resp)
+  end
+
   def mock_response(body, code = '200')
     response = mock(:code => code)
     response.expects(:body).returns(body)
-    AdobeConnect::Response.new(response)
+    response
   end
 end

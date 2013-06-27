@@ -32,9 +32,7 @@ class AdobeConnectMeetingFolderTest < AdobeConnectTestCase
   end
 
   def test_find_returns_a_new_folder
-    response = mock(:code => '200')
-    response.expects(:body).returns(FOLDER_SUCCESS)
-    ac_response = AdobeConnect::Response.new(response)
+    ac_response = mock_ac_response(FOLDER_SUCCESS)
 
     AdobeConnect::Service.any_instance.
       expects(:request).
@@ -51,9 +49,7 @@ class AdobeConnectMeetingFolderTest < AdobeConnectTestCase
   end
 
   def test_contents_returns_folder_contents
-    response = mock(:code => '200')
-    response.expects(:body).returns(FOLDER_CONTENTS)
-    ac_response = AdobeConnect::Response.new(response)
+    ac_response = mock_ac_response(FOLDER_CONTENTS)
     @folder.service.expects(:sco_contents).returns(ac_response)
 
     assert_equal @folder.contents.xpath('//sco').length, 10

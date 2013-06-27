@@ -24,9 +24,8 @@ class AdobeConnectServiceTest < AdobeConnectTestCase
   end
 
   def test_log_in_authenticates
-    response = mock(:code => '200')
+    response = mock_response(LOGIN_SUCCESS)
     response.expects(:fetch).with('set-cookie').returns('BREEZESESSION=12345')
-    response.expects(:body).returns(LOGIN_SUCCESS)
     @service.client.stubs(:get).returns(response)
 
     @service.log_in
@@ -34,9 +33,8 @@ class AdobeConnectServiceTest < AdobeConnectTestCase
   end
 
   def test_log_in_creates_a_session
-    response = mock(:code => '200')
+    response = mock_response(LOGIN_SUCCESS)
     response.expects(:fetch).with('set-cookie').returns('BREEZESESSION=12345;HttpOnly;path=/')
-    response.expects(:body).returns(LOGIN_SUCCESS)
     @service.client.stubs(:get).
       with("/api/xml?action=login&login=name&password=password").
       returns(response)
@@ -46,8 +44,7 @@ class AdobeConnectServiceTest < AdobeConnectTestCase
   end
 
   def test_log_in_returns_false_on_failure
-    response = mock(:code => '200')
-    response.expects(:body).returns(LOGIN_FAIL)
+    response = mock_response(LOGIN_FAIL)
     @service.client.stubs(:get).returns(response)
 
     refute @service.log_in

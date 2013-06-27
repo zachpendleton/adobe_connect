@@ -15,9 +15,7 @@ module AdobeConnectBaseTests
   end
 
   def test_save_persists_obj_to_connect_server
-    response = mock(:code => '200')
-    response.expects(:body).returns(responses[:save_success])
-    ac_response = AdobeConnect::Response.new(response)
+    ac_response = mock_ac_response(responses[:save_success])
 
     @connect_obj.service.expects(:"#{@obj_class.config[:ac_obj_type]}_update").
       with(obj_attrs_posted).
@@ -27,9 +25,7 @@ module AdobeConnectBaseTests
   end
 
   def test_save_stores_the_obj_id_on_the_obj
-    response = mock(:code => '200')
-    response.expects(:body).returns(responses[:save_success])
-    ac_response = AdobeConnect::Response.new(response)
+    ac_response = mock_ac_response(responses[:save_success])
 
     @connect_obj.service.expects(:"#{@obj_class.config[:ac_obj_type]}_update").
       with(obj_attrs_posted).
@@ -41,22 +37,20 @@ module AdobeConnectBaseTests
   end
 
   def test_save_returns_false_on_failure
-    response = mock(:code => '200')
-    response.expects(:body).returns(responses[:save_error])
+    response = mock_ac_response(responses[:save_error])
 
     @connect_obj.service.
       expects(:"#{@obj_class.config[:ac_obj_type]}_update").
-      returns(AdobeConnect::Response.new(response))
+      returns(response)
     refute @connect_obj.save
   end
 
   def test_save_stores_errors_on_failure
-    response = mock(:code => '200')
-    response.expects(:body).returns(responses[:save_error])
+    response = mock_ac_response(responses[:save_error])
 
     @connect_obj.service.
       expects(:"#{@obj_class.config[:ac_obj_type]}_update").
-      returns(AdobeConnect::Response.new(response))
+      returns(response)
     @connect_obj.save
     refute_equal 0, @connect_obj.errors.length
   end
@@ -69,14 +63,13 @@ module AdobeConnectBaseTests
   end
 
   def test_should_update_obj
-    response = mock(:code => '200')
-    response.expects(:body).returns(responses[:update_success])
+    response = mock_ac_response(responses[:update_success])
 
     @connect_obj.instance_variable_set(:@id, 26243)
 
     @connect_obj.service.
       expects(:"#{@obj_class.config[:ac_obj_type]}_update").
-      returns(AdobeConnect::Response.new(response))
+      returns(response)
 
     assert @connect_obj.save
   end
