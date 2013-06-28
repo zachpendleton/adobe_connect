@@ -65,9 +65,6 @@ class AdobeConnectUserTest < AdobeConnectTestCase
   end
 
   def responses
-    super.merge({
-      :find_success => File.read(File.expand_path('../../fixtures/user_find_success.xml', File.dirname(__FILE__))),
-      :find_error   => File.read(File.expand_path('../../fixtures/user_find_error.xml', File.dirname(__FILE__)))
-    })
+    super.merge(load_responses([:find_success, :find_error]))
   end
 end

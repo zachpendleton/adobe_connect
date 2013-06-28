@@ -75,12 +75,18 @@ module AdobeConnectBaseTests
   end
 
   private
-  def responses
-    {
-      :save_success => File.read(File.expand_path("../../fixtures/#{@ac_class}_save_success.xml", File.dirname(__FILE__))),
-      :save_error   => File.read(File.expand_path("../../fixtures/#{@ac_class}_save_error.xml", File.dirname(__FILE__))),
-      :update_success => File.read(File.expand_path("../../fixtures/#{@ac_class}_update_success.xml", File.dirname(__FILE__)))
+  def load_responses(responses)
+    responses.reduce({}) {|rsps, rsp|
+      rsps.merge(rsp => response_file(rsp.to_s))
     }
+  end
+
+  def response_file(resp_name)
+    File.read(File.expand_path("../../fixtures/#{@ac_class}_#{resp_name}.xml", File.dirname(__FILE__)))
+  end
+
+  def responses
+    load_responses([:save_success, :save_error, :update_success])
   end
 
 end
