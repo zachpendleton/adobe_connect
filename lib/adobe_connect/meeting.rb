@@ -40,22 +40,33 @@ module AdobeConnect
       ac_meeting = response.at_xpath('//sco')
 
       if ac_meeting.present?
-        m = self.new({}, service)
-
-        m.attrs.each do |atr,v|
-          chld = ac_meeting.at_xpath("//#{atr.to_s.dasherize}")
-          if !chld.nil?
-            m.send(:"#{atr}=", chld.text)
-          end
-        end
-
-        m.folder_id = ac_meeting.attr('folder-id')
-        m.instance_variable_set(:@id, ac_meeting.attr('sco-id'))
-
-        m
+        load_from_xml(ac_meeting, service)
       else
         nil
       end
+    end
+
+    def self.find_within_folder(folder_id, params = {}, service = AdobeConnect::Service.new)
+      response = service.sco_contents( params.merge(:sco_id => folder_id, :type => 'meeting') )
+      ac_meetings = response.at_xpath('//scos')
+      meetings = ac_meetings.children.map{|m| load_from_xml(m, service) }
+    end
+
+    private
+    def self.load_from_xml(ac_meeting, service)
+      m = self.new({}, service)
+
+      m.attrs.each do |atr,v|
+        chld = ac_meeting.at_xpath("//#{atr.to_s.dasherize}")
+        if !chld.nil?
+          m.send(:"#{atr}=", chld.text)
+        end
+      end
+
+      m.folder_id = ac_meeting.attr('folder-id')
+      m.instance_variable_set(:@id, ac_meeting.attr('sco-id'))
+
+      m
     end
 
   end
