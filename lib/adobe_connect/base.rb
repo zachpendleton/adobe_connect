@@ -22,7 +22,8 @@ module AdobeConnect
     # Returns a boolean.
     def save
       acot = self.class.config[:ac_obj_type]
-      response = service.send(:"#{acot}_update", self.attrs)
+      ac_method = self.class.config[:ac_method_prefix] || acot
+      response = service.send(:"#{ac_method}_update", self.attrs)
 
       if response.at_xpath('//status').attr('code') == 'ok'
         # Load the ID if this was a creation

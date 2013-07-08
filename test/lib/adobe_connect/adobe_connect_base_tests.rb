@@ -5,7 +5,8 @@ module AdobeConnectBaseTests
     @ac_class = self.class.to_s.gsub(/^AdobeConnect/, '').gsub(/Test$/,'')
     @obj_class = "AdobeConnect::#{@ac_class}".constantize
     @connect_obj = @obj_class.new(obj_attrs)
-    self.instance_variable_set(:"@connect_#{@ac_class.downcase}", @connect_obj)
+    self.instance_variable_set(:"@connect_#{@ac_class.underscore.downcase}", @connect_obj)
+    @method_prefix = @obj_class.config[:ac_method_prefix] || @obj_class.config[:ac_obj_type]
   end
 
   def test_initialize_takes_a_hash_with_appropriate_keys
@@ -17,7 +18,7 @@ module AdobeConnectBaseTests
   def test_save_persists_obj_to_connect_server
     ac_response = mock_ac_response(responses[:save_success])
 
-    @connect_obj.service.expects(:"#{@obj_class.config[:ac_obj_type]}_update").
+    @connect_obj.service.expects(:"#{@method_prefix}_update").
       with(obj_attrs_posted).
       returns(ac_response)
 
@@ -27,7 +28,7 @@ module AdobeConnectBaseTests
   def test_save_stores_the_obj_id_on_the_obj
     ac_response = mock_ac_response(responses[:save_success])
 
-    @connect_obj.service.expects(:"#{@obj_class.config[:ac_obj_type]}_update").
+    @connect_obj.service.expects(:"#{@method_prefix}_update").
       with(obj_attrs_posted).
       returns(ac_response)
 
@@ -40,7 +41,7 @@ module AdobeConnectBaseTests
     response = mock_ac_response(responses[:save_error])
 
     @connect_obj.service.
-      expects(:"#{@obj_class.config[:ac_obj_type]}_update").
+      expects(:"#{@method_prefix}_update").
       returns(response)
     refute @connect_obj.save
   end
@@ -49,7 +50,7 @@ module AdobeConnectBaseTests
     response = mock_ac_response(responses[:save_error])
 
     @connect_obj.service.
-      expects(:"#{@obj_class.config[:ac_obj_type]}_update").
+      expects(:"#{@method_prefix}_update").
       returns(response)
     @connect_obj.save
     refute_equal 0, @connect_obj.errors.length
@@ -68,7 +69,7 @@ module AdobeConnectBaseTests
     @connect_obj.instance_variable_set(:@id, 26243)
 
     @connect_obj.service.
-      expects(:"#{@obj_class.config[:ac_obj_type]}_update").
+      expects(:"#{@method_prefix}_update").
       returns(response)
 
     assert @connect_obj.save
@@ -82,7 +83,7 @@ module AdobeConnectBaseTests
   end
 
   def response_file(resp_name)
-    File.read(File.expand_path("../../fixtures/#{@ac_class}_#{resp_name}.xml", File.dirname(__FILE__)))
+    File.read(File.expand_path("../../fixtures/#{@ac_class.underscore.downcase}_#{resp_name}.xml", File.dirname(__FILE__)))
   end
 
   def responses
