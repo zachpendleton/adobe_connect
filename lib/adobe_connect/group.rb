@@ -40,7 +40,7 @@ module AdobeConnect
     def self.load_from_xml(g)
       self.new({
           :name => g.at_xpath('//name').children.text,
-          :description => g.at_xpath('//description').children.text,
+          :description => g.at_xpath('//description').try(:children).try(:text),
           :id => g.attr('principal-id')
         })
     end
