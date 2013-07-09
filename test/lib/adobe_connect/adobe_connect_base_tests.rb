@@ -82,12 +82,14 @@ module AdobeConnectBaseTests
     }
   end
 
-  def response_file(resp_name)
-    File.read(File.expand_path("../../fixtures/#{@ac_class.underscore.downcase}_#{resp_name}.xml", File.dirname(__FILE__)))
+  def response_file(resp_name, prefix = nil)
+    prefix ||= @ac_class.underscore.downcase
+    File.read(File.expand_path("../../fixtures/#{prefix}_#{resp_name}.xml", File.dirname(__FILE__)))
   end
 
   def responses
-    load_responses([:save_success, :save_error, :update_success])
+    @rsps ||= load_responses([:save_success, :save_error, :update_success]).
+                merge(:generic_success => response_file('success', 'generic'))
   end
 
 end

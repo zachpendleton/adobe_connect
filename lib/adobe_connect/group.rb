@@ -23,6 +23,39 @@ module AdobeConnect
       atrs
     end
 
+    # Public: Add a User as a member of this group.
+    #
+    # user - AdobeConnect::User instance
+    #
+    # Returns a boolean of success.
+    def add_member(user)
+      update_membership(user, true)
+    end
+
+    # Public: Find the member of this group.
+    #
+    # email - User's email address
+    #
+    # Returns a boolean.
+    def is_member?(email)
+      return false if self.id.nil?
+
+      response = service.principal_list(:group_id => self.id,
+        :filter_email => email,
+        :filter_is_member => true)
+
+      !response.at_xpath('//principal').nil?
+    end
+
+    # Public: Remove a User from this group.
+    #
+    # user - AdobeConnect::User instance
+    #
+    # Returns a boolean of success.
+    def remove_member(user)
+      update_membership(user, false)
+    end
+
     # Public: Find the given group on the Connect server.
     #
     # name - Group's name on Connect server
@@ -37,6 +70,16 @@ module AdobeConnect
     end
 
     private
+    def update_membership(user, status)
+      response = service.group_membership_update({
+          :group_id => self.id,
+          :principal_id => user.id,
+          :is_member => status
+        })
+
+      response.at_xpath('//status').attr('code') == 'ok'
+    end
+
     def self.load_from_xml(g)
       self.new({
           :name => g.at_xpath('//name').children.text,

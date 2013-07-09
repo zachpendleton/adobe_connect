@@ -25,6 +25,43 @@ class AdobeConnectGroupTest < AdobeConnectTestCase
     assert_equal '54321', attrs[:principal_id]
   end
 
+  def test_add_member_to_group
+    response = mock_ac_response(responses[:generic_success])
+
+    @connect_group.service.
+      expects(:group_membership_update).
+      returns(response)
+
+    user_stub = mock
+    user_stub.expects(:id).returns(12345)
+
+    assert @connect_group.add_member(user_stub)
+  end
+
+  def test_user_is_member_of_group
+    response = mock_ac_response(responses[:is_member])
+
+    @connect_group.id = 12345
+
+    @connect_group.service.
+      expects(:principal_list).
+      returns(response)
+
+    assert @connect_group.is_member?('testuser@example.com')
+  end
+
+  def test_user_is_not_member_of_group
+    response = mock_ac_response(responses[:is_not_member])
+
+    @connect_group.id = 12345
+
+    @connect_group.service.
+      expects(:principal_list).
+      returns(response)
+
+    refute @connect_group.is_member?('testuser@example.com')
+  end
+
   private
   def obj_attrs
     { name: 'Test group', description: 'This is for testing' }
@@ -32,5 +69,9 @@ class AdobeConnectGroupTest < AdobeConnectTestCase
 
   def obj_attrs_posted
     { name: 'Test group', description: 'This is for testing', :type => 'group', :has_children => 1 }
+  end
+
+  def responses
+    super.merge(load_responses([:is_member, :is_not_member]))
   end
 end

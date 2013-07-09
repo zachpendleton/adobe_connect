@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
 class AdobeConnectServiceTest < AdobeConnectTestCase
 
-  LOGIN_SUCCESS = File.read(File.expand_path('../../fixtures/log_in_success.xml', File.dirname(__FILE__)))
+  LOGIN_SUCCESS = File.read(File.expand_path('../../fixtures/generic_success.xml', File.dirname(__FILE__)))
   LOGIN_FAIL    = File.read(File.expand_path('../../fixtures/log_in_fail.xml', File.dirname(__FILE__)))
 
   def setup
