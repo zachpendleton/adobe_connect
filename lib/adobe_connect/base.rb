@@ -17,17 +17,23 @@ module AdobeConnect
       {}
     end
 
+    # Public: Delete this object form Adobe Connect.
+    #
+    # Returns a boolean.
+    def delete
+      response = service.send(:"#{delete_method_prefix}_delete", {:"#{ac_obj_type}_id" => self.id})
+      response.at_xpath('//status').attr('code') == 'ok'
+    end
+
     # Public: Save this object to the Adobe Connect instance.
     #
     # Returns a boolean.
     def save
-      acot = self.class.config[:ac_obj_type]
-      ac_method = self.class.config[:ac_method_prefix] || acot
-      response = service.send(:"#{ac_method}_update", self.attrs)
+      response = service.send(:"#{method_prefix}_update", self.attrs)
 
       if response.at_xpath('//status').attr('code') == 'ok'
         # Load the ID if this was a creation
-        self.id = response.at_xpath("//#{acot}").attr("#{acot}-id") if self.id.nil?
+        self.id = response.at_xpath("//#{ac_obj_type}").attr("#{ac_obj_type}-id") if self.id.nil?
         true
       else
         save_errors(response)
@@ -60,11 +66,25 @@ module AdobeConnect
     end
 
     def self.config
-      { :ac_obj_type => 'principal' }
+      { :ac_obj_type => 'principal', :delete_method_is_plural => true }
     end
 
     private
     attr_writer :id
+
+    def ac_obj_type
+      self.class.config[:ac_obj_type]
+    end
+
+    def delete_method_prefix
+      prefix = method_prefix
+      prefix = prefix.pluralize if self.class.config[:delete_method_is_plural]
+      prefix
+    end
+
+    def method_prefix
+      self.class.config[:ac_method_prefix] || ac_obj_type
+    end
 
     # Internal: Store request errors in @errors.
     #

@@ -31,7 +31,7 @@ module AdobeConnect
     end
 
     def self.config
-      super.merge({ :ac_obj_type => 'sco' })
+      super.merge({ :ac_obj_type => 'sco', :delete_method_is_plural => false })
     end
 
     def self.find_by_url_path(url_path, service = AdobeConnect::Service.new)

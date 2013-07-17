@@ -75,6 +75,16 @@ module AdobeConnectBaseTests
     assert @connect_obj.save
   end
 
+  def test_should_delete_obj
+    response = mock_ac_response(responses[:generic_success])
+
+    @connect_obj.service.
+      expects(:"#{@connect_obj.send(:delete_method_prefix)}_delete").
+      returns(response)
+
+    assert @connect_obj.delete
+  end
+
   private
   def load_responses(responses)
     responses.reduce({}) {|rsps, rsp|
