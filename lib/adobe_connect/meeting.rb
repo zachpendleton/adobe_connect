@@ -54,19 +54,19 @@ module AdobeConnect
 
     private
     def self.load_from_xml(ac_meeting, service)
-      m = self.new({}, service)
+      meeting = self.new({}, service)
 
-      m.attrs.each do |atr,v|
-        chld = ac_meeting.at_xpath("//#{atr.to_s.dasherize}")
+      meeting.attrs.each do |atr,v|
+        chld = ac_meeting.children.select{|c| c.name == atr.to_s.dasherize}[0]
         if !chld.nil?
-          m.send(:"#{atr}=", chld.text)
+          meeting.send(:"#{atr}=", chld.text)
         end
       end
 
-      m.folder_id = ac_meeting.attr('folder-id')
-      m.instance_variable_set(:@id, ac_meeting.attr('sco-id'))
+      meeting.folder_id = ac_meeting.attr('folder-id')
+      meeting.instance_variable_set(:@id, ac_meeting.attr('sco-id'))
 
-      m
+      meeting
     end
 
   end
