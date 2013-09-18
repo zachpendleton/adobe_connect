@@ -33,7 +33,7 @@ module AdobeConnect
 
       if response.at_xpath('//status').attr('code') == 'ok'
         # Load the ID if this was a creation
-        self.id = response.at_xpath("//#{ac_obj_type}").attr("#{ac_obj_type}-id") if self.id.nil?
+        self.id = response.at_xpath("//#{ac_obj_node_name}").attr("#{ac_obj_type}-id") if self.id.nil?
         true
       else
         save_errors(response)
@@ -71,6 +71,10 @@ module AdobeConnect
 
     private
     attr_writer :id
+
+    def ac_obj_node_name
+      self.class.config[:ac_obj_node_name] || ac_obj_type
+    end
 
     def ac_obj_type
       self.class.config[:ac_obj_type]

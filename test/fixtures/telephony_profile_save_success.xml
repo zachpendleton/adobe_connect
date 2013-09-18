@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <telephony-profile profile-status="enabled" provider-id="1160437530" principal-id="1144604670" profile-id="26243">
+    <profile-name>SoundConnect</profile-name>
+  </telephony-profile>
+</results>

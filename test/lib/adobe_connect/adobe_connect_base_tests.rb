@@ -94,7 +94,10 @@ module AdobeConnectBaseTests
 
   def response_file(resp_name, prefix = nil)
     prefix ||= @ac_class.underscore.downcase
-    File.read(File.expand_path("../../fixtures/#{prefix}_#{resp_name}.xml", File.dirname(__FILE__)))
+    File.read(
+      File.expand_path("../../fixtures/#{prefix}_#{resp_name}.xml",
+        File.dirname(__FILE__))
+    ).gsub(/\n\s+/, '') #Strip indentation and new lines, they cause issues
   end
 
   def responses
