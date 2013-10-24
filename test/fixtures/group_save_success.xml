@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <principal type="group" has-children="1" account-id="7" principal-id="26243">
+    <description>This is for testing</description>
+    <name>Test group name</name>
+    <login>Test group name</login>
+  </principal>
+</results>

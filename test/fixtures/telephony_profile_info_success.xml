@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <telephony-profile profile-id="26243" provider-id="987654321" profile-status="enabled" hide-toll-free="false" provider-type="user-conf">
+    <adaptor-id>987654321-adaptor</adaptor-id>
+    <provider-name>SoundConnect</provider-name>
+    <profile-name>SoundConnect</profile-name>
+    <provider-status>enabled</provider-status>
+  </telephony-profile>
+  <telephony-profile-fields disabled="" hide-toll-free="false" principal-id="123456" profile-id="26243" profile-status="enabled" provider-id="987654321">
+    <profile-name>SoundConnect</profile-name>
+  </telephony-profile-fields>
+ </results>

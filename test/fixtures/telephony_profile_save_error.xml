@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="invalid">
+    <invalid field="profile-name" type="string" subcode="duplicate"/>
+  </status>
+</results>

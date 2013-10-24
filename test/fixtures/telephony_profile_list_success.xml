@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <telephony-profiles>
+    <profile profile-id="789456" provider-id="987654321" profile-status="enabled">
+      <adaptor-id>987654321-adaptor</adaptor-id>
+      <name>SoundConnect Provider</name>
+      <profile-name>SoundConnect2</profile-name>
+    </profile>
+    <profile profile-id="26243" provider-id="987654321" profile-status="enabled">
+      <adaptor-id>987654321-adaptor</adaptor-id>
+      <name>SoundConnect Provider</name>
+      <profile-name>SoundConnect</profile-name>
+    </profile>
+  </telephony-profiles>
+</results>

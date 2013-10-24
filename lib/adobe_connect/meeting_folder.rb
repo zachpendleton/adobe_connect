@@ -41,5 +41,17 @@ module AdobeConnect
         response.at_xpath('//url-path').text,
         service)
     end
+
+    # Public: Find the "My Meetings" folder ID of the currently logged in User
+    #
+    # service - An AdobeConnect::Service object (default: Service.new).
+    #
+    # Returns a string of the sco ID of the folder
+    def self.my_meetings_folder_id(service = AdobeConnect::Service.new)
+      response = service.sco_shortcuts({})
+      response.at_xpath('//shortcuts').children.select{|s|
+        s.attr('type') == 'my-meetings'
+      }[0].attr('sco-id')
+    end
   end
 end
