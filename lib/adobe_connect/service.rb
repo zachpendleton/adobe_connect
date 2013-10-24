@@ -79,7 +79,7 @@ module AdobeConnect
     # use_session - If true, require an active session (default: true).
     #
     # Returns an AdobeConnect::Response.
-    def request(action, params, use_session = true)
+    def request(action, params={}, use_session = true)
       if use_session
         log_in unless authenticated?
         params[:session] = session
