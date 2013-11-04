@@ -21,12 +21,14 @@ module AdobeConnect
     # Public: Authenticate against the currently configured Connect service.
     #
     # Returns a boolean.
-    def log_in
+    def log_in(opts={})
       response = request('login', { :login => username, :password => password }, false)
       if response.at_xpath('//status').attr('code') == 'ok'
-        session_regex  = /BREEZESESSION=([^;]+)/
-        @session       = response.fetch('set-cookie').match(session_regex)[1]
-        @authenticated = true
+        unless opts[:no_session]
+          session_regex  = /BREEZESESSION=([^;]+)/
+          @session       = response.fetch('set-cookie').match(session_regex)[1]
+          @authenticated = true
+        end
       else
         false
       end
