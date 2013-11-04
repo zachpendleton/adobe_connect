@@ -28,6 +28,8 @@ module AdobeConnect
           session_regex  = /BREEZESESSION=([^;]+)/
           @session       = response.fetch('set-cookie').match(session_regex)[1]
           @authenticated = true
+        else
+          true
         end
       else
         false
