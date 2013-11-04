@@ -84,6 +84,7 @@ module AdobeConnect
     #
     # Returns an AdobeConnect::Response.
     def request(action, params={}, use_session = true)
+      params ||={}
       if use_session
         log_in unless authenticated?
         params[:session] = session
@@ -91,7 +92,22 @@ module AdobeConnect
 
       query_string = ParamFormatter.new(params).format
       response     = client.get("/api/xml?action=#{action}#{query_string}")
-      AdobeConnect::Response.new(response)
+      case response
+      when Net::HTTPSuccess
+        handle_success(response)
+      when Net::HTTPServerError
+        handle_server_error(response)
+      else 
+        puts "Not prepared to handle response of type #{response.class}"
+      end
+    end
+    def handle_success(response)
+        AdobeConnect::Response.new(response)
+    end
+    def handle_server_error(response)
+      raise AdobeConnect::Exceptions::AdobeConnectServerUnavailable(domain, action)
+      return response
+
     end
   end
 end
