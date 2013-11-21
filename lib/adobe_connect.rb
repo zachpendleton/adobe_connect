@@ -4,6 +4,7 @@ require 'net/https'
 require 'nokogiri'
 
 require 'adobe_connect/config'
+require 'adobe_connect/exceptions'
 require 'adobe_connect/response'
 require 'adobe_connect/service'
 require 'adobe_connect/param_formatter'

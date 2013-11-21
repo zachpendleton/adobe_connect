@@ -98,7 +98,6 @@ module AdobeConnect
       end
       query_string = ParamFormatter.new(params).format
       response     = client.get("/api/xml?action=#{action}#{query_string}")
-      handle_success(response)
       AdobeConnect::Response.new(response)
     end
     # Public: Execute a call against the Adobe Connect instance.
@@ -122,7 +121,7 @@ module AdobeConnect
       when Net::HTTPSuccess
         AdobeConnect::Response.new(response)
       when Net::HTTPServerError
-        raise AdobeConnect::Exceptions::AdobeConnectServerUnavailable(domain, action)
+        raise AdobeConnect::ServerUnavailableError.new(domain, action)
       end
     end
   end
