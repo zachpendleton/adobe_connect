@@ -91,7 +91,6 @@ module AdobeConnect
     #
     # Returns an AdobeConnect::Response.
     def request(action, params={}, use_session = true)
-      params ||={}
       if use_session
         log_in unless authenticated?
         params[:session] = session
