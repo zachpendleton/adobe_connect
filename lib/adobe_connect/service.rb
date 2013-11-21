@@ -106,7 +106,6 @@ module AdobeConnect
     end
     def handle_server_error(response)
       raise AdobeConnect::Exceptions::AdobeConnectServerUnavailable(domain, action)
-      return response
 
     end
   end
