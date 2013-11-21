@@ -56,6 +56,7 @@ module AdobeConnect
     end
 
     # Public: Forward any missing methods to the Connect instance.
+    # if the method ends with ! then raise an exception if the forwarded method returns an HTTPError.
     #
     # method - The name of the method called.
     # *args  - An array of arguments passed to the method.
@@ -69,8 +70,14 @@ module AdobeConnect
     def method_missing(method, *args)
       action = method.to_s.dasherize
       params = args.first
+      if action.end_with? "!"
+        action.chop! #remove the ! from the end
+        request!(action, params)
+      else
 
-      request(action, params)
+        request(action, params)
+      end
+
     end
 
     private
@@ -89,24 +96,34 @@ module AdobeConnect
         log_in unless authenticated?
         params[:session] = session
       end
+      query_string = ParamFormatter.new(params).format
+      response     = client.get("/api/xml?action=#{action}#{query_string}")
+      handle_success(response)
+      AdobeConnect::Response.new(response)
+    end
+    # Public: Execute a call against the Adobe Connect instance.
+    # if there is any form of HTTPError returned, then raise an exception.
+    #
+    # action      - The name of the API action to call.
+    # params      - A hash of params to pass in the request.
+    # use_session - If true, require an active session (default: true).
+    #
+    # Returns an AdobeConnect::Response.
 
+    def request!(action, params={}, use_session = true)
+      params ||={}
+      if use_session
+        log_in unless authenticated?
+        params[:session] = session
+      end
       query_string = ParamFormatter.new(params).format
       response     = client.get("/api/xml?action=#{action}#{query_string}")
       case response
       when Net::HTTPSuccess
-        handle_success(response)
-      when Net::HTTPServerError
-        handle_server_error(response)
-      else 
-        puts "Not prepared to handle response of type #{response.class}"
-      end
-    end
-    def handle_success(response)
         AdobeConnect::Response.new(response)
-    end
-    def handle_server_error(response)
-      raise AdobeConnect::Exceptions::AdobeConnectServerUnavailable(domain, action)
-
+      when Net::HTTPServerError
+        raise AdobeConnect::Exceptions::AdobeConnectServerUnavailable(domain, action)
+      end
     end
   end
 end
