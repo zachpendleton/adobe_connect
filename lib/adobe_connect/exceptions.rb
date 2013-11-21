@@ -1,6 +1,6 @@
 module AdobeConnect
 
-  class Exception < StandardError
+  class AdobeConnect::Exception < StandardError
   end
 
   class ServerUnavailableError < AdobeConnect::Exception
