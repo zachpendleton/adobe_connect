@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <sco account-id="7" disabled="" display-seq="0" folder-id="12345" icon="meeting" lang="en" max-retries="" sco-id="26243" source-sco-id="" type="meeting" version="0">
+    <date-created>2013-06-22T14:22:14.380-04:00</date-created>
+    <date-modified>2013-06-22T14:22:14.380-04:00</date-modified>
+    <description>This is an important meeting</description>
+    <name>Important Meeting</name>
+    <url-path>/r2zssih0kaq/</url-path>
+  </sco>
+</results>

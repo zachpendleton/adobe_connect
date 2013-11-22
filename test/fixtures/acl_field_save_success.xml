@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <field account-id="7" is-primary="true" is-required="false" field-id="26243" object-type="object-type-principal" display-seq="11" field-type="text" permission-id="manage">
+    <name>Phone</name>
+  </field>
+</results>

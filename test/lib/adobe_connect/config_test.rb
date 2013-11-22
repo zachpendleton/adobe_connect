@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
-class ConfigTest < MiniTest::Unit::TestCase
+class ConfigTest < AdobeConnectTestCase
   def setup
     @config = AdobeConnect::Config
   end

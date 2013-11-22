@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper.rb', File.dirname(__FILE__))
 
-class AdobeConnectResponseTest < MiniTest::Unit::TestCase
+class AdobeConnectResponseTest < AdobeConnectTestCase
 
   TEST_HEADERS = { 'Accept' => 'application/json' }
   TEST_BODY    = <<-END
