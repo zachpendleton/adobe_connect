@@ -108,20 +108,10 @@ module AdobeConnect
     #
     # Returns an AdobeConnect::Response.
 
-    def request!(action, params={}, use_session = true)
-      params ||={}
-      if use_session
-        log_in unless authenticated?
-        params[:session] = session
-      end
-      query_string = ParamFormatter.new(params).format
-      response     = client.get("/api/xml?action=#{action}#{query_string}")
-      case response
-      when Net::HTTPSuccess
-        AdobeConnect::Response.new(response)
-      when Net::HTTPServerError
-        raise AdobeConnect::ServerUnavailableError.new(domain, action)
-      end
+    def request!(*args)
+      response = request(*args)
+        response.code == 200 ? response : raise AdobeConnect::ServerUnavailableError.new(domain, action)
+
     end
   end
 end
