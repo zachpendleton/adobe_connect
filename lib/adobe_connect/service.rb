@@ -21,7 +21,7 @@ module AdobeConnect
     # Public: Authenticate against the currently configured Connect service.
     #
     # Returns a boolean.
-    def log_in(opts={})
+    def log_in
       response = request('login', { :login => username, :password => password }, false)
       if response.at_xpath('//status').attr('code') == 'ok'
         unless opts[:no_session]
