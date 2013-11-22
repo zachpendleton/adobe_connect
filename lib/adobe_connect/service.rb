@@ -110,7 +110,7 @@ module AdobeConnect
 
     def request!(*args)
       response = request(*args)
-        response.code == 200 ? response : raise AdobeConnect::ServerUnavailableError.new(domain, action)
+      response.code == 200 ? response : raise AdobeConnect::ServerUnavailableError.new(domain, action)
 
     end
   end
