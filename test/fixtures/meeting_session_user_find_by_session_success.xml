@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <report-meeting-session-users>
+    <row principal-id="1234567890">
+      <principal-name>Joe Webinar</principal-name>
+      <date-created>2014-03-19T20:45:00.000-07:00</date-created>
+      <date-end>2014-03-19T20:50:00.000-07:00</date-end>
+    </row>
+    <row principal-id="0987654321">
+      <principal-name>Wally Webinar</principal-name>
+      <date-created>2014-03-19T20:45:00.000-07:00</date-created>
+      <date-end>2014-03-19T20:50:00.000-07:00</date-end>
+    </row>
+  </report-meeting-session-users>
+</results>
