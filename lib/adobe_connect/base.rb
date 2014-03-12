@@ -52,6 +52,26 @@ module AdobeConnect
       self.save
     end
 
+    # Public: Update permissions on the loaded object for the given principal_id.
+    #
+    # principal_id - id of user
+    # permission_id - AdobeConnect permission value
+    #
+    # Returns a boolean.
+    def permissions_update(principal_id, permission_id)
+      response = service.permissions_update(
+        acl_id: self.id,
+        principal_id: principal_id,
+        permission_id: permission_id
+      )
+
+      if response.at_xpath('//status').attr('code') == 'ok'
+        true
+      else
+        false
+      end
+    end
+
     # Public: Create a Connect obj from the given app obj.
     #
     # obj_options - Generic options (see #initialize for required
