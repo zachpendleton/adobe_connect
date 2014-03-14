@@ -65,11 +65,7 @@ module AdobeConnect
         permission_id: permission_id
       )
 
-      if response.at_xpath('//status').attr('code') == 'ok'
-        true
-      else
-        false
-      end
+      response.at_xpath('//status').attr('code') == 'ok'
     end
 
     # Public: Create a Connect obj from the given app obj.
