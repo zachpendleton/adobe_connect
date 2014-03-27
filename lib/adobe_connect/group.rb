@@ -11,15 +11,16 @@ module AdobeConnect
     #
 
     def attrs
-      atrs = { :has_children => 1, :name => name, :description => description }
+      atrs = { :type => 'group', :has_children => 1 }
+
+      [ :name, :description ].each do |atr|
+        atrs[atr] = send(atr)
+      end
 
       if !self.id.nil?
         atrs.merge!(:principal_id => self.id)
-      else
-        atrs.merge!(
-          :type => 'group'
-        )
       end
+
       atrs
     end
 
@@ -69,7 +70,16 @@ module AdobeConnect
       end
     end
 
+    def self.find_by_type(type, service = AdobeConnect::Service.new)
+      response = service.principal_list(filter_type: type)
+
+      if principal = response.at_xpath('//principal')
+        self.load_from_xml(principal)
+      end
+    end
+
     private
+
     def update_membership(user, status)
       response = service.group_membership_update({
           :group_id => self.id,
@@ -83,7 +93,7 @@ module AdobeConnect
     def self.load_from_xml(g)
       self.new({
           :name => g.at_xpath('//name').children.text,
-          :description => g.at_xpath('//description').try(:children).try(:text),
+          :description => g.at_xpath('//description').children.text,
           :id => g.attr('principal-id')
         })
     end
