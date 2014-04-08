@@ -53,8 +53,8 @@ module AdobeConnect
     #   attributes).
     #
     # Returns an AdobeConnect::User or nil.
-    def self.find(user_options)
-      user     = AdobeConnect::User.new(user_options)
+    def self.find(user_options, service = AdobeConnect::Service.new)
+      user     = AdobeConnect::User.new(user_options, service)
       response = user.service.principal_list(:filter_login => user.username)
 
       if principal = response.at_xpath('//principal')
