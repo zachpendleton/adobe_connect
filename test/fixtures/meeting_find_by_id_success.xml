@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+    <status code="ok" />
+    <sco account-id="1234" disabled="" display-seq="0" folder-id="1234567" icon="meeting" lang="en" max-retries="" sco-id="98765" source-sco-id="" type="meeting" version="0">
+        <date-begin>2014-03-05T16:00:00.000-08:00</date-begin>
+        <date-created>2014-03-06T08:40:36.757-08:00</date-created>
+        <date-end>2014-03-05T17:00:00.000-08:00</date-end>
+        <date-modified>2014-03-06T09:51:10.407-08:00</date-modified>
+        <name>THE Meeting</name>
+        <url-path>/r3wrt7zkrpg/</url-path>
+        <update-linked-item>true</update-linked-item>
+    </sco>
+    <seminar-session-expiry-info>
+        <seminar-session-expired>false</seminar-session-expired>
+    </seminar-session-expiry-info>
+</results>

@@ -85,6 +85,19 @@ module AdobeConnectBaseTests
     assert @connect_obj.delete
   end
 
+  def test_should_update_permissions_on_obj
+    response = mock_ac_response(responses[:generic_success])
+
+    @connect_obj.service.
+      expects(:permissions_update).
+      with(:acl_id => @connect_obj.id,
+        :principal_id => 123,
+        :permission_id =>'view').
+      returns(response)
+
+      assert @connect_obj.permissions_update(123, 'view')
+  end
+
   private
   def load_responses(responses)
     responses.reduce({}) {|rsps, rsp|

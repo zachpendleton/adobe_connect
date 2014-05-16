@@ -30,8 +30,35 @@ module AdobeConnect
       atrs
     end
 
+    def add_host(principal_id)
+      permissions_update(principal_id, 'host')
+    end
+
+    def add_presenter(principal_id)
+      permissions_update(principal_id, 'mini-host')
+    end
+
+    def add_participant(principal_id)
+      permissions_update(principal_id, 'view')
+    end
+
+    def remove_user(principal_id)
+      permissions_update(principal_id, 'remove')
+    end
+
     def self.config
       super.merge({ :ac_obj_type => 'sco', :delete_method_is_plural => false })
+    end
+
+    def self.find_by_id(sco_id, service = AdobeConnect::Service.new)
+      response = service.sco_info(sco_id: sco_id)
+      sco_info = response.at_xpath('//sco')
+
+      if !sco_info.nil?
+        load_from_xml(sco_info, service)
+      else
+        nil
+      end
     end
 
     def self.find_by_url_path(url_path, service = AdobeConnect::Service.new)
@@ -39,7 +66,7 @@ module AdobeConnect
 
       ac_meeting = response.at_xpath('//sco')
 
-      if ac_meeting.present?
+      if !ac_meeting.nil?
         load_from_xml(ac_meeting, service)
       else
         nil
@@ -68,6 +95,5 @@ module AdobeConnect
 
       meeting
     end
-
   end
 end
