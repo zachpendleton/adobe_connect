@@ -32,6 +32,15 @@ class AdobeConnectUserTest < AdobeConnectTestCase
     assert_equal @connect_user.password.length, 10
   end
 
+  def test_reset_password
+    response = mock_ac_response(responses[:generic_success])
+
+    AdobeConnect::Service.any_instance.
+      expects(:user_update_pwd).returns(response)
+
+    assert  @connect_user.reset_password == @connect_user.password
+  end
+
   def test_find_should_return_an_existing_user
     response = mock_ac_response(responses[:find_success])
     AdobeConnect::Service.any_instance.expects(:principal_list).
