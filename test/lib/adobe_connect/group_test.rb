@@ -62,6 +62,16 @@ class AdobeConnectGroupTest < AdobeConnectTestCase
     refute @connect_group.is_member?('testuser@example.com')
   end
 
+  def test_find_by_type_should_return_existing_group
+    response = mock_ac_response(responses[:find_by_type_success])
+    AdobeConnect::Service.any_instance.expects(:principal_list).
+      with(:filter_type => 'live-admins').
+      returns(response)
+
+    connect_group = AdobeConnect::Group.find_by_type('live-admins')
+    assert_instance_of AdobeConnect::Group, connect_group
+  end
+
   private
   def obj_attrs
     { name: 'Test group', description: 'This is for testing' }
@@ -72,6 +82,6 @@ class AdobeConnectGroupTest < AdobeConnectTestCase
   end
 
   def responses
-    super.merge(load_responses([:is_member, :is_not_member]))
+    super.merge(load_responses([:is_member, :is_not_member, :find_by_type_success]))
   end
 end

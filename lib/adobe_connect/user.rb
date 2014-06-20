@@ -47,14 +47,27 @@ module AdobeConnect
       Digest::MD5.hexdigest(uuid)[0..9]
     end
 
+    # Public: Resets the Connect user's password to a generated password.
+    #
+    # Returns a new password string.
+    def reset_password(uuid=email)
+      self.uuid = uuid
+      response = service.user_update_pwd(user_id: self.id, password: self.password, password_verify: self.password)
+      if response.at_xpath('//status').attr('code') == 'ok'
+        password
+      else
+        nil
+      end
+    end
+
     # Public: Find the given app user on the Connect server.
     #
     # app_user - Generic user options (see #initialize for required
     #   attributes).
     #
     # Returns an AdobeConnect::User or nil.
-    def self.find(user_options)
-      user     = AdobeConnect::User.new(user_options)
+    def self.find(user_options, service = AdobeConnect::Service.new)
+      user     = AdobeConnect::User.new(user_options, service)
       response = user.service.principal_list(:filter_login => user.username)
 
       if principal = response.at_xpath('//principal')

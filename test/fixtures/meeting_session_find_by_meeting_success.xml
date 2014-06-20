@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <report-meeting-sessions>
+    <row sco-id="9876" asset-id="1234" version="1" num-participants="2">
+      <date-created>2014-05-05T21:30:00.001-07:00</date-created>
+      <date-end>2014-05-05T22:52:12.907-07:00</date-end>
+    </row>
+  </report-meeting-sessions>
+</results>

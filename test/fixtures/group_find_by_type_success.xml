@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <principal-list>
+    <principal principal-id="974072519" account-id="974121750" type="live-admins" has-children="true" is-primary="true" is-hidden="false" training-group-id="">
+      <name>Meeting Hosts</name>
+      <login>Meeting Hosts</login>
+      <display-uid>Meeting Hosts</display-uid>
+      <description>Meeting hosts group</description>
+    </principal>
+  </principal-list>
+</results>

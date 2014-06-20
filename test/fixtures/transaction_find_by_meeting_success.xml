@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <report-bulk-consolidated-transactions>
+    <row transaction-id="1333037644" sco-id="98765" type="meeting" principal-id="1330871411" score="0">
+      <name>Dallas Cowboys Fans</name>
+      <url>/bigd/</url>
+      <login>accounts@blueskybroadcast.com</login>
+      <user-name>API User</user-name>
+      <status>completed</status>
+      <date-created>2014-02-14T10:55:42.223-08:00</date-created>
+      <date-closed>2014-02-14T10:57:54.980-08:00</date-closed>
+    </row>
+    <row transaction-id="1333055638" sco-id="98765" type="meeting" principal-id="1330871411" score="0">
+      <name>Dallas Cowboys Fans</name>
+      <url>/bigd/</url>
+      <login>accounts@blueskybroadcast.com</login>
+      <user-name>API User</user-name>
+      <status>completed</status>
+      <date-created>2014-02-14T10:33:11.630-08:00</date-created>
+      <date-closed>2014-02-14T10:45:24.030-08:00</date-closed>
+    </row>
+  </report-bulk-consolidated-transactions>
+</results>
