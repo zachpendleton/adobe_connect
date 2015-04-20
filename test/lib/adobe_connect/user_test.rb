@@ -58,10 +58,12 @@ class AdobeConnectUserTest < AdobeConnectTestCase
   end
 
   def obj_attrs_posted
-    { :first_name => obj_attrs[:first_name],
+    attrs = { :first_name => obj_attrs[:first_name],
       :last_name => obj_attrs[:last_name], :login => @connect_obj.username,
       :password => @connect_obj.password, :type => 'user', :has_children => 0,
-      :email => obj_attrs[:email], :send_email => @connect_obj.send_email }
+      :email => obj_attrs[:email] }
+    attrs[:send_email] = @connect_obj.send_email unless @connect_obj.send_email.nil?
+    attrs
   end
 
   def responses

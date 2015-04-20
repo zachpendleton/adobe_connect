@@ -19,8 +19,8 @@ module AdobeConnect
     def attrs
       atrs = { :first_name => first_name,
         :last_name => last_name, :login => username,
-        :email => email, :send_email => send_email,
-        :has_children => 0 }
+        :email => email, :has_children => 0 }
+      atrs[:send_email] = send_email unless send_email.nil?
       if !self.id.nil?
         atrs.merge!(:principal_id => self.id)
       else
