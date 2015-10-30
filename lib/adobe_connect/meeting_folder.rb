@@ -51,7 +51,7 @@ module AdobeConnect
       response = service.sco_shortcuts({})
       response.at_xpath('//shortcuts').children.select{|s|
         s.attr('type') == 'my-meetings'
-      }[0].attr('sco-id')
+      }[0].try(:attr, 'sco-id')
     end
   end
 end
