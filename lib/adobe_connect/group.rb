@@ -81,9 +81,12 @@ module AdobeConnect
     end
 
     def self.load_from_xml(g)
+      desc = g.at_xpath('//description')
+      desc = desc.children unless desc.nil?
+      desc = desc.text unless desc.nil?
       self.new({
           :name => g.at_xpath('//name').children.text,
-          :description => g.at_xpath('//description').try(:children).try(:text),
+          :description => desc,
           :id => g.attr('principal-id')
         })
     end

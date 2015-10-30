@@ -1,5 +1,4 @@
 require 'active_support/core_ext/string/inflections'
-require 'active_support/core_ext/object/try'
 require 'erb'
 require 'net/https'
 require 'nokogiri'
