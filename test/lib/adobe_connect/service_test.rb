@@ -50,6 +50,16 @@ class AdobeConnectServiceTest < AdobeConnectTestCase
     refute @service.log_in
   end
 
+  def test_log_in_raises_exception_on_server_unavailable
+    response = Net::HTTPServiceUnavailable.new "1.1", 503, "Error"
+
+    @service.stubs(:log_in).returns(true)
+    @service.client.stubs(:get).returns(response)
+    assert_raises(AdobeConnect::ServerUnavailableError) do
+    @service.principal_id!
+    end
+  end
+
   def test_unknown_methods_are_proxied_to_the_connect_service
     @service.expects(:request).with('method-name', :a => 1)
     @service.method_name(:a => 1)

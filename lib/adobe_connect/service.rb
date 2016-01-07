@@ -24,9 +24,13 @@ module AdobeConnect
     def log_in
       response = request('login', { :login => username, :password => password }, false)
       if response.at_xpath('//status').attr('code') == 'ok'
-        session_regex  = /BREEZESESSION=([^;]+)/
-        @session       = response.fetch('set-cookie').match(session_regex)[1]
-        @authenticated = true
+        unless opts[:no_session]
+          session_regex  = /BREEZESESSION=([^;]+)/
+          @session       = response.fetch('set-cookie').match(session_regex)[1]
+          @authenticated = true
+        else
+          true
+        end
       else
         false
       end
@@ -52,6 +56,7 @@ module AdobeConnect
     end
 
     # Public: Forward any missing methods to the Connect instance.
+    # if the method ends with ! then raise an exception if the forwarded method returns an HTTPError.
     #
     # method - The name of the method called.
     # *args  - An array of arguments passed to the method.
@@ -65,8 +70,14 @@ module AdobeConnect
     def method_missing(method, *args)
       action = method.to_s.dasherize
       params = args.first
+      if action.end_with? "!"
+        action.chop! #remove the ! from the end
+        request!(action, params)
+      else
 
-      request(action, params)
+        request(action, params)
+      end
+
     end
 
     private
@@ -84,10 +95,23 @@ module AdobeConnect
         log_in unless authenticated?
         params[:session] = session
       end
-
       query_string = ParamFormatter.new(params).format
       response     = client.get("/api/xml?action=#{action}#{query_string}")
       AdobeConnect::Response.new(response)
+    end
+    # Public: Execute a call against the Adobe Connect instance.
+    # if there is any form of HTTPError returned, then raise an exception.
+    #
+    # action      - The name of the API action to call.
+    # params      - A hash of params to pass in the request.
+    # use_session - If true, require an active session (default: true).
+    #
+    # Returns an AdobeConnect::Response.
+
+    def request!(*args)
+      response = request(*args)
+      response.code == 200 ? response : raise AdobeConnect::ServerUnavailableError.new(domain, action)
+
     end
   end
 end
