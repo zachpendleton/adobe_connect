@@ -49,9 +49,14 @@ module AdobeConnect
     # Returns a string of the sco ID of the folder
     def self.my_meetings_folder_id(service = AdobeConnect::Service.new)
       response = service.sco_shortcuts({})
-      response.at_xpath('//shortcuts').children.select{|s|
+      folder = response.at_xpath('//shortcuts').children.select{|s|
         s.attr('type') == 'my-meetings'
-      }[0].attr('sco-id')
+      }[0]
+      if folder.nil?
+        nil
+      else
+        folder.attr('sco-id')
+      end
     end
   end
 end

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <status code="ok"/>
+  <shortcuts>
+    <sco sco-id="25915" type="user-meetings" tree-id="4930292">
+      <domain-name>http://example.com</domain-name>
+    </sco>
+    <sco sco-id="25916" type="user-courses" tree-id="4930293">
+      <domain-name>http://example.com</domain-name>
+    </sco>
+  </shortcuts>
+</results>

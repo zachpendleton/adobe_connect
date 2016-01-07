@@ -11,6 +11,9 @@ class AdobeConnectMeetingFolderTest < AdobeConnectTestCase
   FOLDER_SUCCESS  = File.read(File.expand_path('../../fixtures/folder_success.xml', File.dirname(__FILE__)))
   FOLDER_CONTENTS = File.read(File.expand_path('../../fixtures/folder_contents.xml', File.dirname(__FILE__)))
 
+  MY_MEETINGS_SUCCESS = File.read(File.expand_path('../../fixtures/folder_my_meetings_success.xml', File.dirname(__FILE__)))
+  MY_MEETINGS_FAILURE = File.read(File.expand_path('../../fixtures/folder_my_meetings_failure.xml', File.dirname(__FILE__)))
+
   def setup
     @folder = AdobeConnect::MeetingFolder.new('1', 'test folder', '/test-meeting/')
   end
@@ -53,5 +56,31 @@ class AdobeConnectMeetingFolderTest < AdobeConnectTestCase
     @folder.service.expects(:sco_contents).returns(ac_response)
 
     assert_equal @folder.contents.xpath('//sco').length, 10
+  end
+
+  def test_my_meetings_folder_id_handles_when_no_my_meetings_folder_is_present
+    ac_response = mock_ac_response(MY_MEETINGS_FAILURE)
+
+    AdobeConnect::Service.any_instance.
+      expects(:request).
+      with('sco-shortcuts', {}).
+      returns(ac_response)
+
+    folder_id = AdobeConnect::MeetingFolder.my_meetings_folder_id
+
+    assert_equal folder_id, nil
+  end
+
+  def test_my_meetings_folder_id_returns_id_when_present
+    ac_response = mock_ac_response(MY_MEETINGS_SUCCESS)
+
+    AdobeConnect::Service.any_instance.
+      expects(:request).
+      with('sco-shortcuts', {}).
+      returns(ac_response)
+
+    folder_id = AdobeConnect::MeetingFolder.my_meetings_folder_id
+
+    assert_equal folder_id, '25915'
   end
 end
