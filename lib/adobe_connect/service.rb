@@ -86,12 +86,9 @@ module AdobeConnect
         params[:session] = session
       end
 
-      if params[:extra_query_string]
-        extra_query_string = params[:extra_query_string]
-        params.delete :extra_query_string
-      end
-
+      extra_query_string = params.delete(:extra_query_string)
       query_string = ParamFormatter.new(params).format
+
       response     = client.get("/api/xml?action=#{action}#{query_string}#{extra_query_string}")
       AdobeConnect::Response.new(response)
     end
