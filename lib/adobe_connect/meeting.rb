@@ -76,7 +76,7 @@ module AdobeConnect
     def self.find_within_folder(folder_id, params = {}, service = AdobeConnect::Service.new)
       response = service.sco_contents( params.merge(:sco_id => folder_id, :type => 'meeting') )
       ac_meetings = response.at_xpath('//scos')
-      meetings = ac_meetings.children.map{|m| load_from_xml(m, service) }
+      ac_meetings.children.map{|m| load_from_xml(m, service) }
     end
 
     private
