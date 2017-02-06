@@ -16,6 +16,7 @@ module AdobeConnect
       @password      = options[:password]
       @domain        = URI.parse(options[:domain])
       @authenticated = false
+      @client        = nil
     end
 
     # Public: Authenticate against the currently configured Connect service.

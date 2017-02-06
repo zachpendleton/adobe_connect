@@ -2,7 +2,14 @@ module AdobeConnect
 
   # Public: Represents a user in a Connect environment.
   class User < Base
-    attr_accessor :first_name, :last_name, :email, :username, :uuid, :send_email
+    attr_accessor :first_name, :last_name, :email, :uuid, :send_email
+    attr_writer :username
+
+    def initialize(*)
+      super
+      # Silence a warning about uninitialized instance variable.
+      @username = nil
+    end
 
     #
     # user_options - A hash with the following keys:
