@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_dependency 'activesupport', '>= 2.3.17'
-  gem.add_dependency 'nokogiri',      '>= 1.5.5', '< 1.7'
+  gem.add_dependency 'nokogiri',      '>= 1.5.5', '< 1.8'
   gem.add_dependency 'rake',          '>= 0.9.2'
 
   gem.add_development_dependency 'minitest',    '~> 4.6.0'
