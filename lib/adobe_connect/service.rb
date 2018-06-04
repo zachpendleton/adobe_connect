@@ -76,8 +76,9 @@ module AdobeConnect
     # Public: Execute a call against the Adobe Connect instance.
     #
     # action      - The name of the API action to call.
-    # params      - A hash of params to pass in the request.
-    #               use :extra_query_string to pass the string which will be inserted at the end of request url
+    # params      - A hash of params to pass in the request. The value of the :extra_query_string param will be
+    #               appended to the request URL. This is sometimes necessary because the API allows for repeated
+    #               parameters and sometimes the order of the parameters is important.
     # use_session - If true, require an active session (default: true).
     #
     # Returns an AdobeConnect::Response.
