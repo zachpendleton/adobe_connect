@@ -86,7 +86,13 @@ module AdobeConnect
         params[:session] = session
       end
 
-      extra_query_string = params.delete(:extra_query_string)
+      if params[:extra_query_string]
+        extra_query_string = params[:extra_query_string]
+        raise 'Invalid argument. extra_query_string should start with &.' unless extra_query_string.start_with?('&')
+
+        params.delete :extra_query_string
+      end
+
       query_string = ParamFormatter.new(params).format
 
       response     = client.get("/api/xml?action=#{action}#{query_string}#{extra_query_string}")
