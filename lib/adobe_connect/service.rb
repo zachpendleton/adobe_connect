@@ -80,7 +80,12 @@ module AdobeConnect
     # use_session - If true, require an active session (default: true).
     #
     # Returns an AdobeConnect::Response.
-    def request(action, params={}, use_session = true)
+    def request(action, params, use_session = true)
+
+      # Not sure why using an action with no params isn't defaulting
+      # to the signature default...?
+      params ||= {}
+
       if use_session
         log_in unless authenticated?
         params[:session] = session
