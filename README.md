@@ -70,3 +70,11 @@ and a `status` method for getting back the status code of your request.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Releasing a new version
+
+1. Bump the version number in version.rb
+2. Update the title of the "Unreleased" section of the CHANGELOG to have the
+   new version number and date.
+3. Run `bundle exec rake release` to tag the release, push the tag to Github,
+   build the gem, and push it to rubygems.org.
