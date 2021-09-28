@@ -8,9 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.0.8] - 2021-09-28
+## [1.0.10] - 2021-09-28
 ### Added
 - Allow nokogiri 1.12.x, by @claudio.
+
+## [1.0.9] - 2021-09-28
+### Added
+- Allow nokogiri 1.11.x, by @ccutrer.
 
 ## [1.0.8] - 2019-01-15
 ### Added
