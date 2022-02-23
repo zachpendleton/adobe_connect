@@ -26,6 +26,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'mocha',       '~> 0.13.2'
   gem.add_development_dependency 'pry',         '>= 0.9.11.4'
   gem.add_development_dependency 'redcarpet'
-  gem.add_development_dependency 'yard',        '~> 0.8.4.1'
-  gem.add_development_dependency 'yard-tomdoc', '~> 0.6.0'
+  gem.add_development_dependency 'yard',        '~> 0.9.27'
+  gem.add_development_dependency 'yard-tomdoc', '~> 0.7.1'
 end
