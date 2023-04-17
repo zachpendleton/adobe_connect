@@ -22,10 +22,10 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'nokogiri',      '~> 1.13.3'
   gem.add_dependency 'rake',          '>= 0.9.2'
 
-  gem.add_development_dependency 'minitest',    '~> 4.6.0'
-  gem.add_development_dependency 'mocha',       '~> 0.13.2'
+  gem.add_development_dependency 'minitest',    '~> 5.18'
+  gem.add_development_dependency 'mocha',       '~> 2.0'
   gem.add_development_dependency 'pry',         '>= 0.9.11.4'
   gem.add_development_dependency 'redcarpet'
-  gem.add_development_dependency 'yard',        '~> 0.9.27'
-  gem.add_development_dependency 'yard-tomdoc', '~> 0.7.1'
+  gem.add_development_dependency 'yard',        '>= 0.9.34'
+  gem.add_development_dependency 'yard-tomdoc', '>= 0.7.1'
 end
