@@ -39,8 +39,11 @@ class AdobeConnectMeetingFolderTest < AdobeConnectTestCase
 
     AdobeConnect::Service.any_instance.
       expects(:request).
-      with('sco-search-by-field', :query => 'my_meetings',
-        :filter_type => 'folder', :field => 'name').
+      with('sco-search-by-field', {
+        :query => 'my_meetings',
+        :filter_type => 'folder',
+        :field => 'name'
+      }).
       returns(ac_response)
 
     folder = AdobeConnect::MeetingFolder.find('my_meetings')
@@ -68,7 +71,7 @@ class AdobeConnectMeetingFolderTest < AdobeConnectTestCase
 
     folder_id = AdobeConnect::MeetingFolder.my_meetings_folder_id
 
-    assert_equal folder_id, nil
+    assert_nil folder_id
   end
 
   def test_my_meetings_folder_id_returns_id_when_present

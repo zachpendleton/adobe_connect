@@ -51,7 +51,7 @@ class AdobeConnectServiceTest < AdobeConnectTestCase
   end
 
   def test_unknown_methods_are_proxied_to_the_connect_service
-    @service.expects(:request).with('method-name', :a => 1)
+    @service.expects(:request).with('method-name', {:a => 1})
     @service.method_name(:a => 1)
   end
 end
