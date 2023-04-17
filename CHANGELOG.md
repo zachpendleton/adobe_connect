@@ -6,7 +6,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
+
+## [1.0.12] - 2023-04-17
+### Added
+- Require secure nokogiri  >= 1.14.3
+
+## [1.0.11] - 2022-02-22
+### Added
+- Require nokogiri >= 1.13.3
 
 ## [1.0.10] - 2021-09-28
 ### Added
